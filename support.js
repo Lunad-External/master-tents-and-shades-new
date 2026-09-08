@@ -1,6 +1,38 @@
 // GENERATED from dc-runtime/src/*.ts — do not edit. Rebuild with `cd dc-runtime && bun run build`.
 "use strict";
 (() => {
+  const SITE_ROOT = "/";
+
+  function routeSlugFromPath(pathname) {
+    let filename;
+    try {
+      filename = decodeURIComponent(pathname.split("/").pop() || "");
+    } catch {
+      return null;
+    }
+    if (!filename.toLowerCase().endsWith(".dc.html")) return null;
+    return filename.slice(0, -8).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
+  function normalizeInternalLinks(root = document) {
+    root.querySelectorAll("a[href]").forEach((anchor) => {
+      let url;
+      try {
+        url = new URL(anchor.getAttribute("href"), document.baseURI);
+      } catch {
+        return;
+      }
+      if (url.origin !== location.origin) return;
+      const slug = routeSlugFromPath(url.pathname);
+      if (url.pathname.endsWith("/index.html")) {
+        anchor.setAttribute("href", `${SITE_ROOT}${url.search}${url.hash}`);
+        return;
+      }
+      if (!slug) return;
+      anchor.setAttribute("href", `${SITE_ROOT}${slug}/${url.search}${url.hash}`);
+    });
+  }
+
   var __defProp = Object.defineProperty;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
@@ -1619,7 +1651,7 @@
   }
 
   // src/runtime.ts
-  var COMPONENT_DIR = ".";
+  var COMPONENT_DIR = SITE_ROOT === "/" ? "" : SITE_ROOT.replace(/\/$/, "");
   function createRuntime(doc = document) {
     const registry = createRegistry();
     const pseudoClass = createPseudoSheet(doc);
@@ -1847,6 +1879,9 @@
   }
   function init() {
     const runtime = createRuntime(document);
+    const linkObserver = new MutationObserver(() => normalizeInternalLinks());
+    linkObserver.observe(document.documentElement, { childList: true, subtree: true });
+    normalizeInternalLinks();
     let rootName = "Root";
     const baseCss = document.createElement("style");
     baseCss.textContent = BASE_CSS;
