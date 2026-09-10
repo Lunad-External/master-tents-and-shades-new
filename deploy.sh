@@ -47,8 +47,7 @@ if ! sudo grep -Fq "$INCLUDE_LINE" "$NGINX_SITE"; then
     trap 'rm -f "$tmp"' EXIT
 
     awk -v include_line="$INCLUDE_LINE" '
-        /listen[[:space:]]+443[[:space:]]+ssl/ { in_https = 1 }
-        in_https && /location[[:space:]]+\/[[:space:]]*\{/ && !added {
+        /root[[:space:]]+\/var\/www\/mysite;/ && !added {
             print "    " include_line
             added = 1
         }
@@ -58,7 +57,7 @@ if ! sudo grep -Fq "$INCLUDE_LINE" "$NGINX_SITE"; then
         }
     ' "$NGINX_SITE" > "$tmp" || {
         rm -f "$tmp"
-        fail "Could not find location / inside the HTTPS server block. Nginx config was not changed."
+        fail "Could not find root /var/www/mysite; in the Nginx config. Nginx config was not changed."
     }
 
     sudo install -m 0644 "$tmp" "$NGINX_SITE"
