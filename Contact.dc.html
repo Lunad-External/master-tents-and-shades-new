@@ -11,6 +11,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
   body { margin: 0; font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif; color: #334155; }
   a { color: #BEA16A; text-decoration: none; }
@@ -63,6 +64,8 @@
           <input style="width:100%;box-sizing:border-box;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#ffffff;padding:16px 20px;font-size:16px;color:#1F4357;" name="phone" placeholder="Phone"/>
           <input style="width:100%;box-sizing:border-box;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#ffffff;padding:16px 20px;font-size:16px;color:#1F4357;" name="email" type="email" placeholder="Email" required="{{ true }}"/>
           <textarea style="width:100%;box-sizing:border-box;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#ffffff;padding:16px 20px;font-size:16px;color:#1F4357;" name="message" rows="4" placeholder="Message"></textarea>
+          <div class="g-recaptcha" data-sitekey="6LdJN8ItAAAAAAc9QY860-1CmgQ0hwtGZj4kRzZd" style="margin-bottom:4px;"></div>
+          <p id="recaptcha-error" style="display:none;margin:0;font-size:13px;color:#c0392b;">Please complete the CAPTCHA before submitting.</p>
           <button type="submit" style="width:100%;border:none;border-radius:10px;background:#c6ab84;padding:16px 24px;font-size:17px;font-weight:500;color:#ffffff;cursor:pointer;">{{ submitLabel }}</button>
           <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
             <p style="margin:0;font-size:14px;color:#1F4357;">Thanks — we'll be in touch shortly.</p>
@@ -99,8 +102,14 @@ class Component extends DCLogic {
     };
     requestAnimationFrame(tick);
   }
-  onSubmit(e) {
+    onSubmit(e) {
     e.preventDefault();
+    const token = grecaptcha.getResponse();
+    if (!token) {
+      document.getElementById('recaptcha-error').style.display = 'block';
+      return;
+    }
+    document.getElementById('recaptcha-error').style.display = 'none';
     this.setState({ sending: true });
     setTimeout(() => this.setState({ sending: false, sent: true }), 500);
   }
