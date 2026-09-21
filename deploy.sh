@@ -22,7 +22,24 @@ command -v rsync >/dev/null || fail "rsync is not installed."
 command -v nginx >/dev/null || fail "nginx is not installed."
 [ -d "$REPO_DIR/.git" ] || fail "$REPO_DIR is not a Git repository."
 [ -f "$REPO_DIR/generate-nginx-routes.sh" ] || fail "generate-nginx-routes.sh is missing."
-[ -f "$NGINX_SITE" ] || fail "Nginx site configuration not found: $NGINX_SITE"
+
+if [ ! -f "$NGINX_SITE" ]; then
+    log "Finding the active Nginx site configuration"
+    NGINX_SITE="$(sudo nginx -T 2>/dev/null | awk '
+        /^# configuration file / {
+            file = $0
+            sub(/^# configuration file /, "", file)
+            sub(/:$/, "", file)
+        }
+        /server_name[[:space:]]+mastertentsandshades\.com/ && file != "" {
+            print file
+            exit
+        }
+    ')"
+fi
+
+[ -n "$NGINX_SITE" ] && [ -f "$NGINX_SITE" ] || fail "Nginx site configuration not found. Set NGINX_SITE to its path and run again."
+NGINX_SITE="$(sudo readlink -f "$NGINX_SITE")"
 
 log "Pulling the latest $BRANCH branch"
 git -C "$REPO_DIR" pull --ff-only origin "$BRANCH"
