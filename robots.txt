@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /*?
 Disallow: /shop.php
 
-Sitemap: https://mastertentsandshades.com/sitemap.xml
+Sitemap: https://www.mastertentsandshades.com/sitemap.xml
