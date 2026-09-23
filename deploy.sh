@@ -5,7 +5,8 @@ REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 SITE_ROOT="${SITE_ROOT:-/var/www/mysite}"
 NGINX_SITE="${NGINX_SITE:-/etc/nginx/sites-available/mysite}"
 NGINX_INCLUDE="/etc/nginx/snippets/mastertents-routes.conf"
-NGINX_REDIRECT="${NGINX_REDIRECT:-/etc/nginx/conf.d/mastertentsandshades-redirect.conf}"
+NGINX_REDIRECT_BEGIN="# BEGIN mastertentsandshades canonical redirect"
+NGINX_REDIRECT_END="# END mastertentsandshades canonical redirect"
 APEX_HOST="mastertentsandshades.com"
 CANONICAL_HOST="www.mastertentsandshades.com"
 BRANCH="${DEPLOY_BRANCH:-main}"
@@ -73,8 +74,16 @@ SSL_CERTIFICATE_KEY="$(sudo awk '/^[[:space:]]*ssl_certificate_key[[:space:]]/ {
 [ -n "$SSL_CERTIFICATE" ] && [ -n "$SSL_CERTIFICATE_KEY" ] || fail "Could not find SSL certificate directives in $NGINX_SITE."
 
 log "Generating non-www redirects"
-sudo mkdir -p "$(dirname "$NGINX_REDIRECT")"
-sudo tee "$NGINX_REDIRECT" >/dev/null <<EOF
+sudo rm -f "${NGINX_REDIRECT:-/etc/nginx/conf.d/mastertentsandshades-redirect.conf}"
+tmp="$(mktemp)"
+sudo awk -v begin="$NGINX_REDIRECT_BEGIN" -v end="$NGINX_REDIRECT_END" '
+    $0 == begin { skip = 1; next }
+    $0 == end { skip = 0; next }
+    !skip { print }
+' "$NGINX_SITE" > "$tmp"
+cat >> "$tmp" <<EOF
+
+$NGINX_REDIRECT_BEGIN
 server {
     listen 80;
     listen [::]:80;
@@ -93,7 +102,10 @@ server {
 
     return 301 https://$CANONICAL_HOST\$request_uri;
 }
+$NGINX_REDIRECT_END
 EOF
+sudo install -m 0644 "$tmp" "$NGINX_SITE"
+rm -f "$tmp"
 
 log "Publishing website files to $SITE_ROOT"
 sudo mkdir -p "$SITE_ROOT" /etc/nginx/snippets
