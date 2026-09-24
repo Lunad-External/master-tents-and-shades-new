@@ -3,7 +3,6 @@ set -Eeuo pipefail
 
 REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 SITE_ROOT="${SITE_ROOT:-/var/www/mysite}"
-PUBLISH_ROOT="${PUBLISH_ROOT:-$REPO_DIR/dist}"
 NGINX_SITE="${NGINX_SITE:-/etc/nginx/sites-available/mysite}"
 NGINX_INCLUDE="/etc/nginx/snippets/mastertents-routes.conf"
 NGINX_REDIRECT_BEGIN="# BEGIN mastertentsandshades canonical redirect"
@@ -30,7 +29,6 @@ command -v nginx >/dev/null || fail "nginx is not installed."
 
 log "Pulling the latest $BRANCH branch"
 git -C "$REPO_DIR" pull --ff-only origin "$BRANCH"
-[ -d "$PUBLISH_ROOT" ] || fail "$PUBLISH_ROOT is missing. Run 'python prerender.py' and commit or copy dist/ before deploying."
 
 if [ ! -f "$NGINX_SITE" ]; then
     log "Finding the active Nginx site configuration"
@@ -112,10 +110,12 @@ rm -f "$tmp"
 log "Publishing website files to $SITE_ROOT"
 sudo mkdir -p "$SITE_ROOT" /etc/nginx/snippets
 sudo rsync -a --delete \
-    "$PUBLISH_ROOT/" "$SITE_ROOT/"
+    --exclude='.git/' \
+    --exclude='dev_server.py' \
+    "$REPO_DIR/" "$SITE_ROOT/"
 
 log "Generating clean URL routes"
-sudo bash "$REPO_DIR/generate-nginx-routes.sh" "$SITE_ROOT" \
+sudo bash "$SITE_ROOT/generate-nginx-routes.sh" "$SITE_ROOT" \
     | sudo tee "$NGINX_INCLUDE" >/dev/null
 
 log "Ensuring the route include is present in the HTTPS server block"
