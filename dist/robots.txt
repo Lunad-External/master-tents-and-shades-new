@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /*?
+Disallow: /shop.php
+
+Sitemap: https://www.mastertentsandshades.com/sitemap.xml

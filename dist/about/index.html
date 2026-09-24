@@ -1,0 +1,152 @@
+<!DOCTYPE html><html><head><base href="/"><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script><style>x-dc{display:none!important}</style><script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.googleapis.com" data-dc-tpl="1"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet" data-dc-tpl="2"><style data-dc-tpl="3">
+  body { margin: 0; font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif; color: #334155; }
+  a { color: #BEA16A; text-decoration: none; }
+  a:hover { color: #1F4357; }
+</style><style></style></head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="About"><div class="sc-host" data-sc-name="Header" data-dc-tpl="4"><div class="sc-placeholder" title="Header" style="width: 100%; height: 140px;"></div></div><section data-dc-tpl="5" style="position: relative; height: 420px; overflow: hidden; background-image: url(&quot;img/About-Master-Tents-and-Shades-1-scaled.webp&quot;); background-size: cover; background-position: 55% 38%; background-attachment: fixed; display: flex; align-items: flex-end;">
+  <div data-dc-tpl="6" style="position: absolute; inset: 0px; background: rgba(0, 0, 0, 0.25);"></div>
+  <div data-dc-tpl="7" style="position: relative; max-width: 1600px; margin-inline: auto; padding: 0px 40px 24px; width: 100%;">
+    <p data-dc-tpl="8" style="margin: 0px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 50px; font-weight: 400; color: rgb(255, 255, 255);">About Us</p>
+  </div></section><main data-dc-tpl="9">
+  <section data-dc-tpl="10" style="padding: 30px 0px 20px;">
+    <div data-dc-tpl="11" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px;">
+      <p data-dc-tpl="12" style="margin: 0px 0px 8px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 25px; font-weight: 400; color: rgb(31, 67, 87);">About Master Tents and Shades LLC</p>
+      <h1 data-dc-tpl="13" style="margin: 0px 0px 20px; font-size: 16px; font-weight: 400; line-height: 1.7; color: rgb(45, 56, 66);">We at Master Tents &amp; Shades excel in the Design, Manufacturing, and Installation of a wide array of fabric and metal structures be it steel/aluminum/fabric and we provide turnkey solutions including the RCC works. Our wide range of products includes all kinds of Aluminum or Steel tents, all kinds of Car Parking Shades, all kinds of Tensile Membrane Structures, all kinds of Aluminum Pergolas, all kinds of Sail Shades, all kinds of Outdoor Umbrella Shades, pergola sheds, beach umbrella sheds, all kinds of Awning Shades, all kinds of PVC fabrics, Tarpaulins, HDPE fabrics and many more.</h1>
+      <p data-dc-tpl="14" style="margin: 0px 0px 8px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 25px; font-weight: 400; color: rgb(31, 67, 87);">What We Do!</p>
+      <h2 data-dc-tpl="15" style="margin: 0px; font-size: 16px; font-weight: 400; line-height: 1.7; color: rgb(45, 56, 66);">Master Tents and Shades provides practical and smart solutions for terraces and restaurants, helping extend the high season despite weather fluctuations from decorating a restaurant to building a customized mobile space, marquee design enthusiasts, and hospitality improvement professionals across the region. Master Tents and Shades is able to turn ideas into reality using its unique collection of outdoor furniture and pagodas, marquees or mobile halls. In addition, our entire range of tents and tensile, canopies, car parking shades and umbrellas can be well adapted to any space, demand, and budget. Our products and solutions are tailored to optimize space and offer comfort and relaxation. this is all about master tents and shades.</h2>
+    </div>
+  </section>
+
+  <section data-dc-tpl="16" style="padding: 30px 0px 15px;">
+    <div data-dc-tpl="17" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px; display: flex; flex-wrap: wrap; gap: 32px;">
+      <div data-dc-tpl="18" style="flex: 1 1 480px; display: flex; flex-direction: column;">
+        <p data-dc-tpl="19" style="margin: 0px 0px 12px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 25px; font-weight: 400; color: rgb(31, 67, 87);">Why Choose Us</p>
+        <p data-dc-tpl="20" style="margin: 0px 0px 20px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);">Our team in Dubai specializes in supplying a diverse range of car parking shades and tents tailored for various sectors, including aviation, sports, and military. We provide customized solutions to meet the specific requirements of each industry, ensuring high-quality and durable structures that cater to their unique needs. Our expertise extends to designing and installing parking shades and tents that are not only functional but also aesthetically pleasing, enhancing the overall environment and functionality of the spaces they serve.</p>
+        <div data-dc-tpl="21" style="display: flex; align-items: stretch; margin-top: auto;">
+          
+            <div data-dc-tpl="23" style="flex: 1 1 0%; padding: 0px 8px; text-align: center; border-left: 1px solid rgba(31, 67, 87, 0.25);">
+              <p data-dc-tpl="24" style="margin: 0px; white-space: nowrap; font-size: clamp(14px, 1.4vw, 20px); font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Happy Clients</span></p>
+              <p data-dc-tpl="25" style="margin: 4px 0px 0px; font-size: clamp(34px, 3.5vw, 50px); line-height: 1.2; color: rgb(190, 161, 106);"><span class="sc-interp">0</span></p>
+            </div>
+          
+            <div data-dc-tpl="23" style="flex: 1 1 0%; padding: 0px 8px; text-align: center; border-left: 1px solid rgba(31, 67, 87, 0.25);">
+              <p data-dc-tpl="24" style="margin: 0px; white-space: nowrap; font-size: clamp(14px, 1.4vw, 20px); font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Business</span></p>
+              <p data-dc-tpl="25" style="margin: 4px 0px 0px; font-size: clamp(34px, 3.5vw, 50px); line-height: 1.2; color: rgb(190, 161, 106);"><span class="sc-interp">0</span></p>
+            </div>
+          
+            <div data-dc-tpl="23" style="flex: 1 1 0%; padding: 0px 8px; text-align: center; border-left: 1px solid rgba(31, 67, 87, 0.25);">
+              <p data-dc-tpl="24" style="margin: 0px; white-space: nowrap; font-size: clamp(14px, 1.4vw, 20px); font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Completed Projects</span></p>
+              <p data-dc-tpl="25" style="margin: 4px 0px 0px; font-size: clamp(34px, 3.5vw, 50px); line-height: 1.2; color: rgb(190, 161, 106);"><span class="sc-interp">0</span></p>
+            </div>
+          
+        </div>
+      </div>
+      <div data-dc-tpl="26" style="flex: 1 1 380px;">
+        <p data-dc-tpl="27" style="margin: 0px 0px 16px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 25px; font-weight: 400; color: rgb(31, 67, 87);">Get A free Quote!</p>
+        <form data-dc-tpl="28" style="display: flex; flex-direction: column; gap: 16px;">
+          <input data-dc-tpl="29" name="name" placeholder="Name" required="" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);">
+          <input data-dc-tpl="30" name="phone" placeholder="Phone" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);">
+          <input data-dc-tpl="31" name="email" type="email" placeholder="Email" required="" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);">
+          <textarea data-dc-tpl="32" name="message" rows="4" placeholder="Message" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);"></textarea>
+          <button data-dc-tpl="33" type="submit" style="width: 100%; border: none; border-radius: 10px; background: rgb(198, 171, 132); padding: 16px 24px; font-size: 17px; font-weight: 500; color: rgb(255, 255, 255); cursor: pointer;"><span class="sc-interp">Send →</span></button>
+          
+        </form>
+      </div>
+    </div>
+  </section></main><div class="sc-host" data-sc-name="Footer" data-dc-tpl="36"><div class="sc-placeholder" title="Footer" style="width: 100%; height: 400px;"></div></div></div></div>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  state = { sending: false, sent: false, statsCounts: [0, 0, 0] };
+  statsRef = (el) => {
+    if (!el || this._statsObserved) return;
+    this._statsObserved = true;
+    const targets = [200, 60, 700];
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { this.animateStats(targets); io.disconnect(); }
+    }, { threshold: 0.3 });
+    io.observe(el);
+  };
+  animateStats(targets) {
+    const start = performance.now();
+    const duration = 1600;
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      this.setState({ statsCounts: targets.map((t) => Math.round(t * eased)) });
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  onSubmit(e) {
+    e.preventDefault();
+    this.setState({ sending: true });
+    setTimeout(() => this.setState({ sending: false, sent: true }), 500);
+  }
+  renderVals() {
+    return {
+      stats: [
+        { label: 'Happy Clients', display: this.state.statsCounts[0] },
+        { label: 'Business', display: this.state.statsCounts[1] },
+        { label: 'Completed Projects', display: this.state.statsCounts[2] },
+      ],
+      statsRef: this.statsRef,
+      sent: this.state.sent,
+      submitLabel: this.state.sending ? 'Sending...' : 'Send →',
+      onSubmit: (e) => this.onSubmit(e),
+    };
+  }
+}
+</script>
+
+
+</body></html>

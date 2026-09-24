@@ -1,0 +1,394 @@
+<!DOCTYPE html><html><head><base href="/"><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script><style>x-dc{display:none!important}</style><script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.googleapis.com" data-dc-tpl="1"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet" data-dc-tpl="2"><style data-dc-tpl="3">
+  body { margin: 0; font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif; color: #334155; }
+  a { color: #BEA16A; text-decoration: none; }
+  a:hover { color: #1F4357; }
+</style><style></style><style data-dc-tpl="1">
+@keyframes mtsDropdownIn { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+</style><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8134357226" data-dc-tpl="2"></script><script data-dc-tpl="3">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8134357226');
+</script></head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="Transparent Pergola"><div class="sc-host" data-sc-name="InfoPage" data-dc-tpl="0"><div class="sc-host" data-sc-name="Header" data-dc-tpl="4"><div data-dc-tpl="4" style="background: rgb(255, 255, 255);">
+  <div data-dc-tpl="5" style="background: rgb(255, 255, 255);">
+    <div data-dc-tpl="6" style="max-width: 1600px; margin-inline: auto; padding-inline: 80px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; padding-bottom: 20px;">
+      <div data-dc-tpl="7" style="display: flex; align-items: center; gap: 18px; padding-left: 4px; color: rgb(190, 161, 106);">
+        <a data-dc-tpl="8" href="https://www.linkedin.com/company/mastershades23/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="9" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="10" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2zm2.4 2.9a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM4.4 19.1h3v-9.2h-3v9.2zm5 0h3v-5.1c0-1.2.55-1.9 1.6-1.9 1 0 1.4.7 1.4 1.9v5.1h3v-5.6c0-2.5-1.3-3.8-3.2-3.8-1.4 0-2.2.7-2.6 1.4h-.05V9.9h-3.15c.04.85 0 9.2 0 9.2z"></path></svg></a>
+        <a data-dc-tpl="11" href="https://www.instagram.com/mastershade23/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="12" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect data-dc-tpl="13" x="3" y="3" width="18" height="18" rx="5"></rect><circle data-dc-tpl="14" cx="12" cy="12" r="4"></circle><circle data-dc-tpl="15" cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+        <a data-dc-tpl="16" href="https://twitter.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="17" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="18" d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.9 3.7A11.5 11.5 0 0 1 3.5 4.7a4 4 0 0 0 1.3 5.4c-.7 0-1.3-.2-1.8-.5 0 2 1.4 3.6 3.2 4-.6.2-1.2.2-1.8.1a4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18.1a11.4 11.4 0 0 0 6.3 1.8c7.5 0 11.6-6.2 11.6-11.6v-.5c.8-.6 1.5-1.3 2.1-2z"></path></svg></a>
+        <a data-dc-tpl="19" href="mailto:info@mastertentsandshades.com" aria-label="Email" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="20" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="21" d="M22.1 3.2 1.9 11c-.7.27-.68 1.28.03 1.52l5.05 1.68 1.9 5.5c.2.6.98.76 1.4.28l2.6-2.9 5.06 3.7c.5.37 1.22.1 1.36-.52l3.5-15.4c.15-.68-.53-1.24-1.17-.98zM8.9 13.9 18.6 6.6l-8.5 8.9-.4 3.1-.8-4.7z"></path></svg></a>
+        <a data-dc-tpl="22" href="https://www.facebook.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="23" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="24" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5H16v-7.1h2.4l.36-2.8H16V9.32c0-.8.23-1.35 1.39-1.35H18.8V5.47c-.26-.04-1.1-.11-2.09-.11-2.07 0-3.48 1.26-3.48 3.58v2.16h-2.34v2.8h2.34V22H3.5A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2z"></path></svg></a>
+        <a data-dc-tpl="25" href="https://api.whatsapp.com/send/?phone=971545410602&amp;text=Hello%0D%0AHow+can+we+help%21&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="scp0" style="color: rgb(186, 165, 115);"><svg data-dc-tpl="26" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><g data-dc-tpl="27" fill="currentColor"><path data-dc-tpl="28" d="m.054 24 1.687-6.163a11.869 11.869 0 0 1-1.588-5.945C.156 5.335 5.493 0 12.05 0c3.182.001 6.17 1.24 8.415 3.488a11.819 11.819 0 0 1 3.481 8.413c-.002 6.557-5.34 11.893-11.896 11.893h-.005c-1.99-.001-3.947-.5-5.685-1.448L.054 24zm6.598-3.807.361.214a9.875 9.875 0 0 0 5.033 1.378h.004c5.45 0 9.886-4.434 9.888-9.884a9.824 9.824 0 0 0-2.894-6.994 9.823 9.823 0 0 0-6.99-2.898c-5.454 0-9.89 4.434-9.892 9.884a9.86 9.86 0 0 0 1.512 5.26l.235.374-.999 3.648 3.742-.982z"></path><path data-dc-tpl="29" fill-rule="evenodd" clip-rule="evenodd" d="M9.077 6.92c-.242-.579-.487-.5-.67-.51-.172-.008-.37-.01-.569-.01s-.52.074-.792.372c-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.873.117.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.174.199-.347.223-.644.075-.298-.15-1.256-.463-2.39-1.475-.885-.788-1.481-1.761-1.655-2.059-.173-.297-.018-.458.13-.606.135-.133.298-.347.447-.52.148-.174.198-.298.297-.497.099-.198.05-.372-.025-.52-.074-.149-.669-1.612-.916-2.207z"></path></g></svg></a>
+      </div>
+      <div data-dc-tpl="30" style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px;">
+        <a data-dc-tpl="31" href="tel:+971562221906" style="display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 500; color: rgb(190, 161, 106);">
+          <svg data-dc-tpl="32" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path data-dc-tpl="33" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+          CALL US: +971 56 222 1906
+        </a>
+        <a data-dc-tpl="34" href="/contact/" style="display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 500; color: rgb(190, 161, 106);">
+          <svg data-dc-tpl="35" id="nc_icon" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 24 24" width="18" height="18"><g data-dc-tpl="36" fill="#baa573" class="nc-icon-wrapper"><path data-dc-tpl="37" d="M17 16c-2.951 0-5.403-.639-7-1.712V16c0 1.657 3.134 3 7 3s7-1.343 7-3v-1.712C22.403 15.361 19.951 16 17 16zM17 21c-2.951 0-5.403-.639-7-1.712V21c0 1.657 3.134 3 7 3s7-1.343 7-3v-1.712C22.403 20.361 19.951 21 17 21z"></path><ellipse data-dc-tpl="38" cx="17" cy="11" rx="7" ry="3"></ellipse><ellipse data-dc-tpl="39" cx="7" cy="3" rx="7" ry="3"></ellipse><path data-dc-tpl="40" d="M8 17.973c-.327.016-.659.027-1 .027-2.951 0-5.403-.639-7-1.712V18c0 1.657 3.134 3 7 3 .34 0 .673-.014 1-.034v-2.993zM8 12.973c-.327.016-.659.027-1 .027-2.951 0-5.403-.639-7-1.712V13c0 1.657 3.134 3 7 3 .34 0 .673-.014 1-.034v-2.993zM9.92 7.766A17.81 17.81 0 0 1 7 8c-2.951 0-5.403-.639-7-1.712V8c0 1.657 3.134 3 7 3 .341 0 .674-.014 1.003-.034.012-1.263.707-2.36 1.917-3.2z"></path></g></svg>
+          GET A QUOTE
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div data-dc-tpl="41" style="background: rgb(255, 255, 255); position: relative;">
+    <div data-dc-tpl="42" style="max-width: 1600px; margin-inline: auto; padding-inline: 80px; display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px;">
+      <a data-dc-tpl="43" href="/" aria-label="Master Tents and Shades" style="display: flex; align-items: center; gap: 10px;">
+        <img data-dc-tpl="44" src="img/mastr-tents-and-shades-logo.jpg" alt="Master Tents and Shades" style="height: 70px; width: auto;">
+      </a>
+
+      
+      <nav data-dc-tpl="46">
+        <ul data-dc-tpl="47" style="display: flex; align-items: center; gap: 24px; list-style: none; margin: 0px; padding: 0px;">
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/about/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">About Us</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/tents/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Tents</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/pergola/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Pergola</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/parking-shades/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Parking Shades</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/shades/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Shades</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/contact/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Contact</span></a>
+              </li>
+          
+        </ul>
+      </nav>
+      
+
+      
+    </div>
+
+    
+  </div>
+
+  <div data-dc-tpl="88" style="position: fixed; left: 0px; right: 0px; top: 0px; z-index: 50; background: rgb(190, 161, 106); transition: transform 0.3s; transform: translateY(-100%);">
+    <div data-dc-tpl="89" style="margin-inline: auto; display: flex; align-items: stretch; max-width: 100%;">
+      
+      <a data-dc-tpl="91" href="/" style="flex-shrink: 0; display: flex; align-items: center; background: rgb(190, 161, 106); padding: 12px 32px;">
+        <img data-dc-tpl="92" src="img/icon-1.png" alt="Master Tents and Shades" style="height: 80px; width: auto;">
+      </a>
+      
+      <div data-dc-tpl="93" style="display: grid; grid-template-columns: repeat(3, 1fr); flex: 1 1 0%; border-left: 1px solid rgba(255, 255, 255, 0.4);">
+        <div data-dc-tpl="94" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); border-right: 1px solid rgba(255, 255, 255, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="95" style="margin: 0px; font-size: 15px; font-weight: 600;">CALL US:</p>
+          <a data-dc-tpl="96" href="tel:+971562221906" style="font-size: 15px; font-weight: 600; color: rgb(255, 255, 255);">+971 56 222 1906</a>
+        </div>
+        <div data-dc-tpl="97" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); border-right: 1px solid rgba(255, 255, 255, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="98" style="margin: 0px; font-size: 15px; font-weight: 600;">Office time</p>
+          <p data-dc-tpl="99" style="margin: 0px; font-size: 15px; font-weight: 600;">09-00 : 18:00</p>
+        </div>
+        <div data-dc-tpl="100" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="101" style="margin: 0px; font-size: 15px; font-weight: 600;">Mail Us:</p>
+          <a data-dc-tpl="102" href="mailto:info@mastertentsandshades.com" style="font-size: 15px; font-weight: 600; color: rgb(255, 255, 255);">info@mastertentsandshades.com</a>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+  <section data-dc-tpl="6" style="position: relative; height: 420px; overflow: hidden; background-image: url(&quot;img/Transparent-Pergola-Shade.webp&quot;); background-size: cover; background-position: 65% 12%; background-attachment: fixed; display: flex; align-items: flex-end;">
+    <div data-dc-tpl="7" style="position: absolute; inset: 0px; background: rgba(0, 0, 0, 0.25);"></div>
+    
+      <div data-dc-tpl="9" style="position: relative; max-width: 1600px; margin-inline: auto; padding: 0px 40px 24px; width: 100%;">
+        <p data-dc-tpl="10" style="margin: 0px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 50px; font-weight: 400; color: rgb(255, 255, 255);"><span class="sc-interp">Transparent Pergola</span></p>
+      </div>
+    
+  </section><main data-dc-tpl="11">
+  
+    <section data-dc-tpl="13" style="padding: 20px 0px;">
+      <div data-dc-tpl="14" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px; display: flex; flex-wrap: wrap; gap: 32px;">
+        
+          <div data-dc-tpl="16" style="flex: 1 1 100%; text-align: center;">
+            
+              
+                <p data-dc-tpl="19" style="margin: 0px 0px 16px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 25px; font-weight: 400; color: rgb(31, 67, 87);"><span class="sc-interp">Transparent Pergola Shade in Dubai for Restaurants, Cafes and Villa Courtyards</span></p>
+              
+              
+              
+              
+              
+              
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: left; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 400; font-family: inherit;"><span class="sc-interp">Master Tents and Shades. What to reach the full potential of your outdoor space? High-end retractable awning with aluminum structure, Pergola Roof offers lasting and aesthetic systems to make use of your patio, terrace, and backyard all year around. Elevate your pergola experience by opting for a stunning roof pergola, allowing you to immerse yourself in the beauty of your surroundings while staying sheltered from the elements. Enhance the allure of your outdoor haven with a pergola featuring glass sides, seamlessly blending the warmth of the indoors with the serenity of the outdoors. For those seeking a touch of contemporary elegance, consider a pergola with glass walls, creating a sophisticated and open atmosphere. A clear pergola in Dubai offers a blend of sunlight and shade for comfort. opt for a glass roof and sides for style and functionality. Glass pergolas transform outdoor spaces into beautiful and tranquil havens.</span></p>
+              
+              
+              
+              
+              
+            
+          </div>
+        
+      </div>
+    </section>
+  
+    <section data-dc-tpl="13" style="padding: 20px 0px;">
+      <div data-dc-tpl="14" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px; display: flex; flex-wrap: wrap; gap: 32px;">
+        
+          <div data-dc-tpl="16" style="flex: 1 1 100%; text-align: center;">
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: center; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 700; font-family: &quot;DM Serif Text&quot;, Georgia, serif;"><span class="sc-interp">Transparent Pergola Shade Features</span></p>
+              
+              
+              
+              
+              
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: center; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 400; font-family: inherit;"><span class="sc-interp">MATERIALS / FABRIC / COMPOSITE</span></p>
+              
+              
+              
+              
+              
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: center; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 400; font-family: inherit;"><span class="sc-interp">Master Tents and Shades. Transparent Pergola - Soltis Proof 502 by Serge Ferrari is a highly durable, dimensionally stable material with a</span></p>
+              
+              
+              
+              
+              
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: center; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 400; font-family: inherit;"><span class="sc-interp">5-Years warranty. This easy-maintenance waterproof material protects against bad weather and UV and offers exceptional dirt and mold resistance due to its PVDF surface.</span></p>
+              
+              
+              
+              
+              
+            
+          </div>
+        
+      </div>
+    </section>
+  
+    <section data-dc-tpl="13" style="padding: 20px 0px;">
+      <div data-dc-tpl="14" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px; display: flex; flex-wrap: wrap; gap: 32px;">
+        
+          <div data-dc-tpl="16" style="flex: 1 1 300px;">
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: center; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 700; font-family: &quot;DM Serif Text&quot;, Georgia, serif;"><span class="sc-interp">Transparent Pergola Developers</span></p>
+              
+              
+              
+              
+              
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: left; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 400; font-family: inherit;"><span class="sc-interp">Master Tents and Shades. A transparent pergola developer is a company or individual that specializes in designing and constructing pergolas made from transparent materials such as glass or polycarbonate. These pergolas are often used to provide shelter from the elements while still allowing natural light to filter through. The developer may work with architects, engineers, and other professionals to create custom designs that meet the specific needs and preferences of their clients.</span></p>
+              
+              
+              
+              
+              
+            
+          </div>
+        
+          <div data-dc-tpl="16" style="flex: 1 1 300px;">
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: center; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 700; font-family: &quot;DM Serif Text&quot;, Georgia, serif;"><span class="sc-interp">Transparent Pergola Shade Manufacturer</span></p>
+              
+              
+              
+              
+              
+            
+              
+              
+                <p data-dc-tpl="21" style="margin: 0px 0px 16px; text-align: left; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66); font-style: normal; font-weight: 400; font-family: inherit;"><span class="sc-interp">Master Tents and Shades. Transparent pergolas are popular for their ability to offer protection from weather conditions while permitting natural light to illuminate the space underneath. Collaborating with architects, engineers, and other experts, the developer crafts unique and personalized designs tailored to the requirements and desires of their customers. This collaborative effort ensures that the transparent pergolas not only enhance the aesthetics of the outdoor space but also meet functional needs effectively.</span></p>
+              
+              
+              
+              
+              
+            
+          </div>
+        
+      </div>
+    </section>
+  
+
+  <section data-dc-tpl="62" style="padding: 30px 0px 15px;">
+    <div data-dc-tpl="63" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px; display: flex; flex-wrap: wrap; gap: 32px;">
+      <div data-dc-tpl="64" style="flex: 1 1 480px; display: flex; flex-direction: column;">
+        <p data-dc-tpl="65" style="margin: 0px 0px 12px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 25px; font-weight: 400; color: rgb(31, 67, 87);">Why Choose Us</p>
+        <p data-dc-tpl="66" style="margin: 0px 0px 20px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);">Our team in Dubai specializes in supplying a diverse range of car parking shades and tents tailored for various sectors, including aviation, sports, and military. We provide customized solutions to meet the specific requirements of each industry, ensuring high-quality and durable structures that cater to their unique needs. Our expertise extends to designing and installing parking shades and tents that are not only functional but also aesthetically pleasing, enhancing the overall environment and functionality of the spaces they serve.</p>
+        <div data-dc-tpl="67" style="display: flex; align-items: stretch; margin-top: auto;">
+          
+            <div data-dc-tpl="69" style="flex: 1 1 0%; padding: 0px 8px; text-align: center; border-left: 1px solid rgba(31, 67, 87, 0.25);">
+              <p data-dc-tpl="70" style="margin: 0px; white-space: nowrap; font-size: clamp(14px, 1.4vw, 20px); font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Happy Clients</span></p>
+              <p data-dc-tpl="71" style="margin: 4px 0px 0px; font-size: clamp(34px, 3.5vw, 50px); line-height: 1.2; color: rgb(190, 161, 106);"><span class="sc-interp">0</span></p>
+            </div>
+          
+            <div data-dc-tpl="69" style="flex: 1 1 0%; padding: 0px 8px; text-align: center; border-left: 1px solid rgba(31, 67, 87, 0.25);">
+              <p data-dc-tpl="70" style="margin: 0px; white-space: nowrap; font-size: clamp(14px, 1.4vw, 20px); font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Business</span></p>
+              <p data-dc-tpl="71" style="margin: 4px 0px 0px; font-size: clamp(34px, 3.5vw, 50px); line-height: 1.2; color: rgb(190, 161, 106);"><span class="sc-interp">0</span></p>
+            </div>
+          
+            <div data-dc-tpl="69" style="flex: 1 1 0%; padding: 0px 8px; text-align: center; border-left: 1px solid rgba(31, 67, 87, 0.25);">
+              <p data-dc-tpl="70" style="margin: 0px; white-space: nowrap; font-size: clamp(14px, 1.4vw, 20px); font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Completed Projects</span></p>
+              <p data-dc-tpl="71" style="margin: 4px 0px 0px; font-size: clamp(34px, 3.5vw, 50px); line-height: 1.2; color: rgb(190, 161, 106);"><span class="sc-interp">0</span></p>
+            </div>
+          
+        </div>
+      </div>
+      <div data-dc-tpl="72" style="flex: 1 1 380px;">
+        <p data-dc-tpl="73" style="margin: 0px 0px 16px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 25px; font-weight: 400; color: rgb(31, 67, 87);">Get A free Quote!</p>
+        <form data-dc-tpl="74" style="display: flex; flex-direction: column; gap: 16px;">
+          <input data-dc-tpl="75" name="name" placeholder="Name" required="" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);">
+          <input data-dc-tpl="76" name="phone" placeholder="Phone" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);">
+          <input data-dc-tpl="77" name="email" type="email" placeholder="Email" required="" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);">
+          <textarea data-dc-tpl="78" name="message" rows="4" placeholder="Message" style="width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.15); background: rgb(255, 255, 255); padding: 16px 20px; font-size: 16px; color: rgb(31, 67, 87);"></textarea>
+          <button data-dc-tpl="79" type="submit" style="width: 100%; border: none; border-radius: 10px; background: rgb(198, 171, 132); padding: 16px 24px; font-size: 17px; font-weight: 500; color: rgb(255, 255, 255); cursor: pointer;"><span class="sc-interp">Send →</span></button>
+          
+        </form>
+      </div>
+    </div>
+  </section></main><div class="sc-host" data-sc-name="Footer" data-dc-tpl="82"><footer data-dc-tpl="0" style="color: rgb(255, 255, 255); background-image: linear-gradient(rgb(31, 67, 87) 0%, rgb(35, 21, 26) 100%);">
+  <div data-dc-tpl="1" style="max-width: 1200px; margin-inline: auto; padding: 40px 15px 16px;">
+    <div data-dc-tpl="2" style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
+      <div data-dc-tpl="3" style="flex: 1 1 280px; font-size: 16px; line-height: 32px; color: rgb(255, 255, 255);">
+        <p data-dc-tpl="4" style="margin: 0px 0px 8px; font-weight: 600; line-height: 28.8px;">Master Tents and Shades LLC</p>
+        <p data-dc-tpl="5" style="margin: 0px;"><a data-dc-tpl="6" href="tel:+97142203352" style="color: rgb(255, 255, 255);">+971 4 220 3352</a> | <a data-dc-tpl="7" href="tel:+971562221906" style="color: rgb(255, 255, 255);">+971 56 222 1906</a></p>
+        <p data-dc-tpl="8" style="margin: 0px;"><a data-dc-tpl="9" href="mailto:info@mastertentsandshades.com" style="color: rgb(255, 255, 255);">info@mastertentsandshades.com</a></p>
+        <p data-dc-tpl="10" style="margin: 0px;"># 601, Abraj Almamzar</p>
+        <p data-dc-tpl="11" style="margin: 0px;">P.O.Box: 99160, Dubai</p>
+        <p data-dc-tpl="12" style="margin: 0px;">United Arab Emirates</p>
+      </div>
+      <div data-dc-tpl="13" style="flex: 1 1 200px; display: flex; flex-direction: column; align-items: center;">
+        <a data-dc-tpl="14" href="/"><img data-dc-tpl="15" src="img/icon-1.png" alt="Master Tents and Shades" style="height: 139px; width: auto;"></a>
+        <div data-dc-tpl="16" style="margin-top: 8px; display: flex; gap: 14px; color: rgb(255, 255, 255);">
+          <a data-dc-tpl="17" href="https://www.linkedin.com/company/mastershades23/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="scp2" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="18" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="19" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2zm2.4 2.9a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM4.4 19.1h3v-9.2h-3v9.2zm5 0h3v-5.1c0-1.2.55-1.9 1.6-1.9 1 0 1.4.7 1.4 1.9v5.1h3v-5.6c0-2.5-1.3-3.8-3.2-3.8-1.4 0-2.2.7-2.6 1.4h-.05V9.9h-3.15c.04.85 0 9.2 0 9.2z"></path></svg></a>
+          <a data-dc-tpl="20" href="https://www.instagram.com/mastershade23/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="scp2" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="21" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect data-dc-tpl="22" x="3" y="3" width="18" height="18" rx="5"></rect><circle data-dc-tpl="23" cx="12" cy="12" r="4"></circle><circle data-dc-tpl="24" cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+          <a data-dc-tpl="25" href="https://twitter.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="scp2" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="26" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="27" d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.9 3.7A11.5 11.5 0 0 1 3.5 4.7a4 4 0 0 0 1.3 5.4c-.7 0-1.3-.2-1.8-.5 0 2 1.4 3.6 3.2 4-.6.2-1.2.2-1.8.1a4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18.1a11.4 11.4 0 0 0 6.3 1.8c7.5 0 11.6-6.2 11.6-11.6v-.5c.8-.6 1.5-1.3 2.1-2z"></path></svg></a>
+          <a data-dc-tpl="28" href="mailto:info@mastertentsandshades.com" aria-label="Email" class="scp2" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="29" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="30" d="M22.1 3.2 1.9 11c-.7.27-.68 1.28.03 1.52l5.05 1.68 1.9 5.5c.2.6.98.76 1.4.28l2.6-2.9 5.06 3.7c.5.37 1.22.1 1.36-.52l3.5-15.4c.15-.68-.53-1.24-1.17-.98zM8.9 13.9 18.6 6.6l-8.5 8.9-.4 3.1-.8-4.7z"></path></svg></a>
+          <a data-dc-tpl="31" href="https://www.facebook.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="scp2" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="32" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="33" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5H16v-7.1h2.4l.36-2.8H16V9.32c0-.8.23-1.35 1.39-1.35H18.8V5.47c-.26-.04-1.1-.11-2.09-.11-2.07 0-3.48 1.26-3.48 3.58v2.16h-2.34v2.8h2.34V22H3.5A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2z"></path></svg></a>
+          <a data-dc-tpl="34" href="https://api.whatsapp.com/send/?phone=971545410602&amp;text=Hello%0D%0AHow+can+we+help%21&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="scp2" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="35" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26"><g data-dc-tpl="36" fill="currentColor"><path data-dc-tpl="37" d="m.054 24 1.687-6.163a11.869 11.869 0 0 1-1.588-5.945C.156 5.335 5.493 0 12.05 0c3.182.001 6.17 1.24 8.415 3.488a11.819 11.819 0 0 1 3.481 8.413c-.002 6.557-5.34 11.893-11.896 11.893h-.005c-1.99-.001-3.947-.5-5.685-1.448L.054 24zm6.598-3.807.361.214a9.875 9.875 0 0 0 5.033 1.378h.004c5.45 0 9.886-4.434 9.888-9.884a9.824 9.824 0 0 0-2.894-6.994 9.823 9.823 0 0 0-6.99-2.898c-5.454 0-9.89 4.434-9.892 9.884a9.86 9.86 0 0 0 1.512 5.26l.235.374-.999 3.648 3.742-.982z"></path><path data-dc-tpl="38" fill-rule="evenodd" clip-rule="evenodd" d="M9.077 6.92c-.242-.579-.487-.5-.67-.51-.172-.008-.37-.01-.569-.01s-.52.074-.792.372c-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.873.117.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.174.199-.347.223-.644.075-.298-.15-1.256-.463-2.39-1.475-.885-.788-1.481-1.761-1.655-2.059-.173-.297-.018-.458.13-.606.135-.133.298-.347.447-.52.148-.174.198-.298.297-.497.099-.198.05-.372-.025-.52-.074-.149-.669-1.612-.916-2.207z"></path></g></svg></a>
+        </div>
+      </div>
+      <div data-dc-tpl="39" style="flex: 1 1 280px; font-size: 16px; line-height: 32px; text-align: right;">
+        <p data-dc-tpl="40" style="margin: 0px 0px 8px; font-weight: 600; line-height: 25.6px;">Our Products / Services</p>
+        <ul data-dc-tpl="41" style="margin: 0px; padding: 0px; list-style: none;">
+          <li data-dc-tpl="42"><a data-dc-tpl="43" href="/pergola-shades/" style="color: rgb(242, 244, 247);">All kind of Pergola Shades</a></li>
+          <li data-dc-tpl="44"><a data-dc-tpl="45" href="/parking-shades/" style="color: rgb(242, 244, 247);">All kind of Parking Shades</a></li>
+          <li data-dc-tpl="46"><a data-dc-tpl="47" href="/shades/" style="color: rgb(242, 244, 247);">All kind of Tensile Shades</a></li>
+          <li data-dc-tpl="48"><a data-dc-tpl="49" href="/awning-shades/" style="color: rgb(242, 244, 247);">New Awning Shades</a></li>
+          <li data-dc-tpl="50"><a data-dc-tpl="51" href="/umbrella-shades/" style="color: rgb(242, 244, 247);">New Umbrella Shades</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr data-dc-tpl="52" style="margin-top: 24px; border-width: 2px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgba(31, 67, 87, 0.75); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial;">
+    <p data-dc-tpl="53" style="padding: 16px 0px; text-align: center; font-size: 16px; color: rgba(255, 255, 255, 0.45);">© 2026 All Rights Reserved. Master Tents and Shades LLC in Dubai, Sharjah, Abu Dhabi All over UAE.</p>
+  </div></footer></div></div></div></div>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  renderVals() {
+    return { p: {
+      heroImg: 'img/Transparent-Pergola-Shade.webp', heroPos: '65% 12%', heroTitle: 'Transparent Pergola',
+      sections: [
+        { cols: [[
+          { t: 'h1', text: 'Transparent Pergola Shade in Dubai for Restaurants, Cafes and Villa Courtyards', align: 'center' },
+          { t: 'p', text: 'Master Tents and Shades. What to reach the full potential of your outdoor space? High-end retractable awning with aluminum structure, Pergola Roof offers lasting and aesthetic systems to make use of your patio, terrace, and backyard all year around. Elevate your pergola experience by opting for a stunning roof pergola, allowing you to immerse yourself in the beauty of your surroundings while staying sheltered from the elements. Enhance the allure of your outdoor haven with a pergola featuring glass sides, seamlessly blending the warmth of the indoors with the serenity of the outdoors. For those seeking a touch of contemporary elegance, consider a pergola with glass walls, creating a sophisticated and open atmosphere. A clear pergola in Dubai offers a blend of sunlight and shade for comfort. opt for a glass roof and sides for style and functionality. Glass pergolas transform outdoor spaces into beautiful and tranquil havens.' },
+        ]] },
+        { cols: [[
+          { t: 'p', text: 'Transparent Pergola Shade Features', align: 'center', bold: true, serif: true },
+          { t: 'p', text: 'MATERIALS / FABRIC / COMPOSITE', align: 'center' },
+          { t: 'p', text: 'Master Tents and Shades. Transparent Pergola - Soltis Proof 502 by Serge Ferrari is a highly durable, dimensionally stable material with a', align: 'center' },
+          { t: 'p', text: '5-Years warranty. This easy-maintenance waterproof material protects against bad weather and UV and offers exceptional dirt and mold resistance due to its PVDF surface.', align: 'center' },
+        ]] },
+        { cols: [
+          [ { t: 'p', text: 'Transparent Pergola Developers', align: 'center', bold: true, serif: true },
+            { t: 'p', text: 'Master Tents and Shades. A transparent pergola developer is a company or individual that specializes in designing and constructing pergolas made from transparent materials such as glass or polycarbonate. These pergolas are often used to provide shelter from the elements while still allowing natural light to filter through. The developer may work with architects, engineers, and other professionals to create custom designs that meet the specific needs and preferences of their clients.' } ],
+          [ { t: 'p', text: 'Transparent Pergola Shade Manufacturer', align: 'center', bold: true, serif: true },
+            { t: 'p', text: 'Master Tents and Shades. Transparent pergolas are popular for their ability to offer protection from weather conditions while permitting natural light to illuminate the space underneath. Collaborating with architects, engineers, and other experts, the developer crafts unique and personalized designs tailored to the requirements and desires of their customers. This collaborative effort ensures that the transparent pergolas not only enhance the aesthetics of the outdoor space but also meet functional needs effectively.' } ],
+        ] },
+      ],
+    } };
+  }
+}
+</script>
+
+
+</body></html>

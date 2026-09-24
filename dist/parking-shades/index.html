@@ -1,0 +1,567 @@
+<!DOCTYPE html><html><head><base href="/"><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script><style>x-dc{display:none!important}</style><script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.googleapis.com" data-dc-tpl="1"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet" data-dc-tpl="2"><style data-dc-tpl="3">
+  body { margin: 0; font-family: 'Inter', sans-serif; color: #5B6472; }
+  a { color: #DD8E0E; text-decoration: none; }
+</style><style></style></head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="Parking Shades"><div class="sc-host" data-sc-name="Header" data-dc-tpl="4"><div class="sc-placeholder" title="Header" style="width: 100%; height: 140px;"></div></div><section data-dc-tpl="5" style="background: rgb(244, 235, 216); padding: 60px 0px;">
+  <div data-dc-tpl="6" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 44px; align-items: center;">
+    <div data-dc-tpl="7">
+      <span data-dc-tpl="8" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Manufacturer and Supplier</span>
+      <h1 data-dc-tpl="9" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 32px; max-width: 18ch; margin: 0px 0px 16px; line-height: 1.25;">Car Parking Shades Manufacturers and Suppliers in UAE</h1>
+      <p data-dc-tpl="10" style="max-width: 52ch; margin: 0px 0px 26px; font-size: 15px;">When it comes to durable, weather-resistant vehicle shelters, Master Tents and Shades stands out among car parking shade manufacturers in Dubai, offering complete design and build, manufacturing, supplying, and maintenance services under one roof. We deliver heavy-duty car parking shades engineered with heat-reflective membranes to combat the UAE's intense summer temperatures. We build all kinds of car parking shades from cantilever car parking shades to large-scale parking canopy structures  with every shade designed as a long-term outdoor shelter, not a short-term fix. Our work covers all kinds of sheets and all kinds of fabrics, giving clients full flexibility to match their budget, aesthetic, and durability requirements.</p>
+      <div data-dc-tpl="11" style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <span data-dc-tpl="12" style="display: flex; align-items: center; gap: 8px; background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 100px; padding: 9px 18px; font-size: 12.5px; font-weight: 700; color: rgb(18, 60, 99);">✓ 8–15 Year Service Life</span>
+      </div>
+    </div>
+    <div data-dc-tpl="13" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 28px; box-shadow: rgba(10, 44, 74, 0.14) 0px 16px 40px; border: 1px solid rgb(231, 222, 198);">
+      <div data-dc-tpl="14" style="display: flex; align-items: center; gap: 12px; background: rgb(18, 60, 99); color: rgb(255, 255, 255); border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;">
+        <div data-dc-tpl="15" style="width: 38px; height: 38px; border-radius: 50%; background: rgb(245, 166, 35); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg data-dc-tpl="16" viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path data-dc-tpl="17" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1z"></path></svg></div>
+        <div data-dc-tpl="18"><span data-dc-tpl="19" style="display: block; font-size: 10.5px; color: rgb(183, 202, 218); text-transform: uppercase; letter-spacing: 0.04em;">Call us now</span><a data-dc-tpl="20" href="tel:+971562221906" style="font-size: 16px; font-weight: 700; color: rgb(255, 255, 255);">+971 56 222 1906</a></div>
+      </div>
+      <h3 data-dc-tpl="21" style="font-family: Poppins, sans-serif; font-size: 16.5px; margin: 0px 0px 14px; color: rgb(18, 60, 99);">Request A Free Quote</h3>
+      <input data-dc-tpl="22" placeholder="Name *" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(231, 222, 198); background: rgb(248, 243, 230); border-radius: 7px; padding: 11px 13px; font-size: 13.5px; margin-bottom: 10px; color: rgb(18, 60, 99);">
+      <input data-dc-tpl="23" placeholder="Phone *" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(231, 222, 198); background: rgb(248, 243, 230); border-radius: 7px; padding: 11px 13px; font-size: 13.5px; margin-bottom: 10px; color: rgb(18, 60, 99);">
+      <textarea data-dc-tpl="24" placeholder="Tell us about your car parking shade needs" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(231, 222, 198); background: rgb(248, 243, 230); border-radius: 7px; padding: 11px 13px; font-size: 13.5px; margin-bottom: 10px; color: rgb(18, 60, 99); min-height: 64px;"></textarea>
+      <button data-dc-tpl="25" type="button" style="width: 100%; background: rgb(245, 166, 35); color: rgb(255, 255, 255); border: none; border-radius: 7px; padding: 12px; font-weight: 700; font-size: 13.5px; cursor: pointer;">Submit Enquiry</button>
+    </div>
+  </div></section><section data-dc-tpl="26" style="background: rgb(255, 255, 255); padding: 60px 0px;">
+  <div data-dc-tpl="27" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="28" style="max-width: 760px; margin: 0px auto 34px; text-align: center;">
+      <span data-dc-tpl="29" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Structural Engineering</span>
+      <h2 data-dc-tpl="30" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">Corrosion-resistant structural engineering</h2>
+      <p data-dc-tpl="31" style="font-size: 14.5px; margin-top: 10px; color: rgb(91, 95, 107);">Every car parking shade structure from <span data-dc-tpl="32" style="color: rgb(199, 123, 59); font-weight: 600;">Master Tents and Shades</span> is built on rust-proof steel frameworks, custom-engineered for villas, parks, and commercial facilities across the Emirates. We also provide full maintenance, relocation, painting, and replacement services to keep every shade structure performing long after installation.</p>
+    </div>
+
+    <div data-dc-tpl="33" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 24px;">
+      <div data-dc-tpl="34" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 24px; text-align: center;">
+        <div data-dc-tpl="35" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin: 0px auto 12px;"><svg data-dc-tpl="36" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="37" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
+        <h4 data-dc-tpl="38" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px;">Maintenance</h4>
+      </div>
+      <div data-dc-tpl="39" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 24px; text-align: center;">
+        <div data-dc-tpl="40" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin: 0px auto 12px;"><svg data-dc-tpl="41" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="42" d="M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9z"></path><path data-dc-tpl="43" d="M8 12l3 3 6-6"></path></svg></div>
+        <h4 data-dc-tpl="44" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px;">Relocation</h4>
+      </div>
+      <div data-dc-tpl="45" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 24px; text-align: center;">
+        <div data-dc-tpl="46" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin: 0px auto 12px;"><svg data-dc-tpl="47" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="48" d="M18.37 2.63L14 7l-1.5-1.5L17 1.13a2 2 0 0 1 2 0 2 2 0 0 1 0 2.5z"></path><path data-dc-tpl="49" d="M9 8L3 14l6 6 6-6"></path><path data-dc-tpl="50" d="M14 7L21 14l-6 6-7-7"></path></svg></div>
+        <h4 data-dc-tpl="51" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px;">Painting</h4>
+      </div>
+      <div data-dc-tpl="52" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 24px; text-align: center;">
+        <div data-dc-tpl="53" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin: 0px auto 12px;"><svg data-dc-tpl="54" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="55" d="M23 4v6h-6"></path><path data-dc-tpl="56" d="M1 20v-6h6"></path><path data-dc-tpl="57" d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path><path data-dc-tpl="58" d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></div>
+        <h4 data-dc-tpl="59" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px;">Replacement</h4>
+      </div>
+    </div>
+
+    <div data-dc-tpl="60" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+      <div data-dc-tpl="61" style="background: rgb(248, 243, 230); border-radius: 12px; padding: 26px;">
+        <div data-dc-tpl="62" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><svg data-dc-tpl="63" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="64" d="M3 9l9-7 9 7"></path><path data-dc-tpl="65" d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"></path></svg></div>
+        <h4 data-dc-tpl="66" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16px; margin: 0px 0px 8px;">Villa driveway shade</h4>
+        <p data-dc-tpl="67" style="font-size: 13.5px; color: rgb(91, 95, 107); margin: 0px;">Residential-scale cantilever shade framework, sized and finished to suit a private driveway without overwhelming the property's frontage.</p>
+      </div>
+      <div data-dc-tpl="68" style="background: rgb(248, 243, 230); border-radius: 12px; padding: 26px;">
+        <div data-dc-tpl="69" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><svg data-dc-tpl="70" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="71" d="M17 21v-8H7v8"></path><path data-dc-tpl="72" d="M7 3v5h8"></path><path data-dc-tpl="73" d="M3 21V8l5-5h8l5 5v13"></path></svg></div>
+        <h4 data-dc-tpl="74" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16px; margin: 0px 0px 8px;">Park shade structures</h4>
+        <p data-dc-tpl="75" style="font-size: 13.5px; color: rgb(91, 95, 107); margin: 0px;">Durable, corrosion-resistant steel canopies engineered for public parks and outdoor recreational areas.</p>
+      </div>
+      <div data-dc-tpl="76" style="background: rgb(248, 243, 230); border-radius: 12px; padding: 26px;">
+        <div data-dc-tpl="77" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><svg data-dc-tpl="78" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect data-dc-tpl="79" x="3" y="3" width="18" height="18" rx="2"></rect><path data-dc-tpl="80" d="M3 9h18"></path><path data-dc-tpl="81" d="M9 21V9"></path></svg></div>
+        <h4 data-dc-tpl="82" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16px; margin: 0px 0px 8px;">Commercial multi-level shade</h4>
+        <p data-dc-tpl="83" style="font-size: 13.5px; color: rgb(91, 95, 107); margin: 0px;">Heavier-duty steel shade bays engineered for repeated daily traffic across large commercial and multi-level parking lots.</p>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="84" style="background: rgb(248, 243, 230); padding: 60px 0px;">
+  <div data-dc-tpl="85" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="86" style="max-width: 680px; margin: 0px auto 34px; text-align: center;">
+      <span data-dc-tpl="87" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Fabric Selection</span>
+      <h2 data-dc-tpl="88" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">Premium fabric selection for all kinds of car parking shades</h2>
+      <p data-dc-tpl="89" style="font-size: 14.5px; margin-top: 10px; color: rgb(91, 95, 107);">As a trusted supplier of car parking shades and sail shade structures, <span data-dc-tpl="90" style="color: rgb(199, 123, 59); font-weight: 600;">Master Tents and Shades</span> works exclusively with industry-grade membrane materials sourced from leading global fabric brands.</p>
+    </div>
+    <div data-dc-tpl="91" style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px;">
+
+      <div data-dc-tpl="92" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 26px;">
+        <img data-dc-tpl="93" src="img/hdpe-car-parking-shade.webp" alt="HDPE car parking shade" style="width: 100%; height: 170px; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: block;">
+        <div data-dc-tpl="94" style="width: 48px; height: 48px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 14px;"><svg data-dc-tpl="95" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="96" d="M4 16c4-8 16-8 20 0"></path><path data-dc-tpl="97" d="M4 20c4-8 16-8 20 0" opacity="0.5"></path></svg></div>
+        <h4 data-dc-tpl="98" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 18px; margin: 0px 0px 8px;">HDPE - high-density polyethylene</h4>
+        <p data-dc-tpl="99" style="font-size: 13.5px; color: rgb(91, 95, 107); margin: 0px 0px 16px;">A breathable shade fabric that reduces heat accumulation under the canopy, available across leading global mills for every budget and performance need.</p>
+        <div data-dc-tpl="100" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+          <span data-dc-tpl="101" style="font-size: 12px; font-weight: 600; color: rgb(18, 60, 99); background: rgb(244, 235, 216); padding: 7px 12px; border-radius: 6px;">Australian fabric - Gale Commercial 95340</span>
+          <span data-dc-tpl="102" style="font-size: 12px; font-weight: 600; color: rgb(18, 60, 99); background: rgb(244, 235, 216); padding: 7px 12px; border-radius: 6px;">Korean fabric</span>
+          <span data-dc-tpl="103" style="font-size: 12px; font-weight: 600; color: rgb(18, 60, 99); background: rgb(244, 235, 216); padding: 7px 12px; border-radius: 6px;">Chinese fabric brands</span>
+        </div>
+        <div data-dc-tpl="104" style="display: flex; align-items: center; gap: 12px; background: rgb(244, 235, 216); border-radius: 10px; padding: 14px 16px;">
+          <div data-dc-tpl="105" style="width: 32px; height: 32px; border-radius: 8px; background: rgb(235, 217, 184); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg data-dc-tpl="106" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#C77B3B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="107" d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2-6.3-4.4-6.3 4.4 2.3-7.2-6-4.4h7.6z"></path></svg></div>
+          <span data-dc-tpl="108" style="font-size: 13px; font-weight: 600; color: rgb(199, 123, 59);">Best for standard shade net installations</span>
+        </div>
+      </div>
+
+      <div data-dc-tpl="109" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 26px;">
+        <img data-dc-tpl="110" src="img/pvc-pvdp-fabrics.webp" alt="PVC and PVDF fabric car parking shade" style="width: 100%; height: 170px; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: block;">
+        <div data-dc-tpl="111" style="width: 48px; height: 48px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 14px;"><svg data-dc-tpl="112" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="113" d="M4 18l8-14 8 14z"></path></svg></div>
+        <h4 data-dc-tpl="114" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 18px; margin: 0px 0px 8px;">PVC and PVDF fabrics</h4>
+        <p data-dc-tpl="115" style="font-size: 13.5px; color: rgb(91, 95, 107); margin: 0px 0px 16px;">Full waterproofing, UV stability, and fire-retardant performance for tensile shade structures, sourced from established fabric manufacturers worldwide.</p>
+        <div data-dc-tpl="116" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+          <span data-dc-tpl="117" style="font-size: 12px; font-weight: 600; color: rgb(18, 60, 99); background: rgb(244, 235, 216); padding: 7px 12px; border-radius: 6px;">German fabric - Mehler</span>
+          <span data-dc-tpl="118" style="font-size: 12px; font-weight: 600; color: rgb(18, 60, 99); background: rgb(244, 235, 216); padding: 7px 12px; border-radius: 6px;">Korean fabric</span>
+          <span data-dc-tpl="119" style="font-size: 12px; font-weight: 600; color: rgb(18, 60, 99); background: rgb(244, 235, 216); padding: 7px 12px; border-radius: 6px;">Indian fabric</span>
+          <span data-dc-tpl="120" style="font-size: 12px; font-weight: 600; color: rgb(18, 60, 99); background: rgb(244, 235, 216); padding: 7px 12px; border-radius: 6px;">Chinese fabric</span>
+        </div>
+        <div data-dc-tpl="121" style="display: flex; align-items: center; gap: 12px; background: rgb(244, 235, 216); border-radius: 10px; padding: 14px 16px;">
+          <div data-dc-tpl="122" style="width: 32px; height: 32px; border-radius: 8px; background: rgb(235, 217, 184); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg data-dc-tpl="123" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#C77B3B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-dc-tpl="124" d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2-6.3-4.4-6.3 4.4 2.3-7.2-6-4.4h7.6z"></path></svg></div>
+          <span data-dc-tpl="125" style="font-size: 13px; font-weight: 600; color: rgb(199, 123, 59);">Best for high-end, architectural developments</span>
+        </div>
+      </div>
+
+    </div>
+  </div></section><section data-dc-tpl="126" style="background: rgb(255, 255, 255); padding: 60px 0px;">
+  <div data-dc-tpl="127" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="128" style="max-width: 680px; margin: 0px auto 34px; text-align: center;">
+      <span data-dc-tpl="129" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Product Range</span>
+      <h2 data-dc-tpl="130" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">Car Parking Shade Designs We Manufacture</h2>
+    </div>
+    
+      <div data-dc-tpl="132" style="margin-bottom: 36px;">
+        <h3 data-dc-tpl="133" style="font-size: 16px; margin: 0px 0px 16px; color: rgb(18, 60, 99); font-family: Poppins, sans-serif; display: flex; align-items: center; gap: 10px;"><span class="sc-interp">Cantilever Car Parking Shades</span><span data-dc-tpl="134" style="flex: 1 1 0%; height: 1px; background: rgb(231, 222, 198);"></span></h3>
+        <div data-dc-tpl="135" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <svg data-dc-tpl="140" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="141" d="M6 20V6M18 20V6M6 6h12"></path></svg>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Arch Cantilever</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Frame Material</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Galvanized Steel</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">PVC / HDPE</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Wind Load</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">High</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Vented Canopy</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Yes</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                <svg data-dc-tpl="143" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="144" d="M12 3v9l7 4"></path><circle data-dc-tpl="145" cx="12" cy="12" r="9"></circle></svg>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Cone Type Cantilever</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Frame Material</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Powder-Coated Steel</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">PVC</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">UV Protection</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">95%+</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Entry Height</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Adjustable</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                <svg data-dc-tpl="147" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="148" d="M12 3l9 18H3z"></path></svg>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Pyramid Cantilever</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Frame Material</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Galvanized Steel</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">PVDF</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Wind Load</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">High</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Solar Integration</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Optional</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                
+                <svg data-dc-tpl="150" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="151" d="M3 19l8-15 10 15z"></path></svg>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Flat Sail Cantilever</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">PVC</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Weight</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">650–900 GSM</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Wind Load</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Moderate–High</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Vented Canopy</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">No (flat profile)</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                
+                
+                <svg data-dc-tpl="153" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="154" d="M4 18c4-9 12-9 16 0"></path></svg>
+                
+                
+                
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Simple Arch Cantilever</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Frame Material</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Galvanized Steel</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Entry Height</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">2.2–2.6 m</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">HDPE</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Foundation</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Standard footing</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                
+                
+                
+                
+                
+                <svg data-dc-tpl="163" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="164" d="M4 18c2-8 6-8 8 0M12 18c2-8 6-8 8 0"></path></svg>
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Double Bay Cantilever</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Weight Load</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Dual-bay rated</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Frame Material</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Heavy Steel</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Entry Height</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Standard</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Foundation</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Extended footing</span></em></li>
+                
+              </ul>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div data-dc-tpl="132" style="margin-bottom: 36px;">
+        <h3 data-dc-tpl="133" style="font-size: 16px; margin: 0px 0px 16px; color: rgb(18, 60, 99); font-family: Poppins, sans-serif; display: flex; align-items: center; gap: 10px;"><span class="sc-interp">Umbrella and Sail Shades</span><span data-dc-tpl="134" style="flex: 1 1 0%; height: 1px; background: rgb(231, 222, 198);"></span></h3>
+        <div data-dc-tpl="135" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                
+                
+                
+                
+                
+                
+                <svg data-dc-tpl="166" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="167" d="M12 3v18M3 11a9 9 0 0 1 18 0z"></path></svg>
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Umbrella Type</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Opening Mechanism</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Manual / Motorised</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Tilt and Rotation</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Yes</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">HDPE / PVC</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Entry Height</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Adjustable</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                
+                
+                
+                
+                
+                
+                <svg data-dc-tpl="166" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="167" d="M12 3v18M3 11a9 9 0 0 1 18 0z"></path></svg>
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Umbrella Parking Shades</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Opening Mechanism</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Motorised Available</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">PVC</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Wind Load</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Moderate</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Frame Material</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Aluminium</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                
+                <svg data-dc-tpl="150" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="151" d="M3 19l8-15 10 15z"></path></svg>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Sail Shades</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">PVC / PVDF</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Weight</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">600–850 GSM</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Frame Material</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Steel Posts</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">UV Protection</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">High</span></em></li>
+                
+              </ul>
+            </div>
+          
+            <div data-dc-tpl="137" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px;">
+              <div data-dc-tpl="138" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                
+                
+                <svg data-dc-tpl="147" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DD8E0E" stroke-width="1.8" style="flex-shrink: 0;"><path data-dc-tpl="148" d="M12 3l9 18H3z"></path></svg>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <span data-dc-tpl="183" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99);"><span class="sc-interp">Pyramid Type</span></span>
+              </div>
+              <ul data-dc-tpl="184" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Fabric Type</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">PVDF</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Vented Canopy</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Yes</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Wind Load</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">High</span></em></li>
+                
+                  <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;"><span class="sc-interp">Solar Integration</span></b><em data-dc-tpl="188" style="font-style: normal; text-align: right;"><span class="sc-interp">Optional</span></em></li>
+                
+              </ul>
+            </div>
+          
+        </div>
+      </div>
+    
+  </div></section><section data-dc-tpl="189" style="background: rgb(245, 166, 35); color: rgb(255, 255, 255); padding: 56px 0px;">
+  <div data-dc-tpl="190" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px; display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center;">
+    <div data-dc-tpl="191" style="background: rgb(255, 255, 255); color: rgb(18, 60, 99); border-radius: 16px; width: 150px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0px auto; box-shadow: rgba(0, 0, 0, 0.15) 0px 12px 26px;">
+      <b data-dc-tpl="192" style="font-family: Poppins, sans-serif; font-size: 34px; line-height: 1;">8–15</b><span data-dc-tpl="193" style="font-size: 11px; font-weight: 700; text-transform: uppercase; margin-top: 4px;">Years Service Life</span>
+    </div>
+    <div data-dc-tpl="194">
+      <h2 data-dc-tpl="195" style="color: rgb(255, 255, 255); font-size: 24px; margin: 0px 0px 10px;">Long-Lasting Warranty on Car Parking Shade Installations</h2>
+      <p data-dc-tpl="196" style="font-size: 14.5px; max-width: 60ch; color: rgb(252, 235, 208); margin: 0px;">Every car parking shade project delivered by Master Tents and Shades comes with a solid manufacturer's warranty, with a service life ranging between 8 and 15 years – translating into low maintenance costs and strong long-term value.</p>
+    </div>
+  </div></section><footer data-dc-tpl="197" style="background: rgb(10, 44, 74); color: rgb(183, 202, 218);">
+  <div data-dc-tpl="198" style="max-width: 1600px; margin-inline: auto; padding: 56px 40px 36px; display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 32px;">
+    <div data-dc-tpl="199">
+      <h4 data-dc-tpl="200" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">About Company</h4>
+      <p data-dc-tpl="201" style="font-size: 13px; line-height: 1.7; color: rgb(159, 176, 196); margin: 0px;">Master Tents and Shades is the UAE's leading manufacturer of steel structure tents, aluminium pergolas, car parking shades, and tensile sail structures — engineered for durability across Dubai, Sharjah, and Abu Dhabi.</p>
+    </div>
+    <div data-dc-tpl="202">
+      <h4 data-dc-tpl="203" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">Connect with Us</h4>
+      <ul data-dc-tpl="204" style="display: flex; flex-direction: column; gap: 12px; margin: 0px; padding: 0px; list-style: none;">
+        <li data-dc-tpl="205" style="font-size: 13px;"><a data-dc-tpl="206" href="mailto:info@mastertentsandshades.com" style="color: rgb(183, 202, 218);">info@mastertentsandshades.com</a></li>
+        <li data-dc-tpl="207" style="font-size: 13px;"><a data-dc-tpl="208" href="tel:+97142203352" style="color: rgb(183, 202, 218);">+971 4 220 3352</a></li>
+        <li data-dc-tpl="209" style="font-size: 13px;"><a data-dc-tpl="210" href="tel:+971562221906" style="color: rgb(183, 202, 218);">+971 56 222 1906</a></li>
+      </ul>
+    </div>
+    <div data-dc-tpl="211">
+      <h4 data-dc-tpl="212" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">Quick Links</h4>
+      <ul data-dc-tpl="213" style="display: flex; flex-direction: column; gap: 10px; margin: 0px; padding: 0px; list-style: none;">
+        <li data-dc-tpl="214"><a data-dc-tpl="215" href="/about/" style="color: rgb(183, 202, 218); font-size: 13px;">About Us</a></li>
+        <li data-dc-tpl="216"><a data-dc-tpl="217" href="/tents/" style="color: rgb(183, 202, 218); font-size: 13px;">Tents</a></li>
+        <li data-dc-tpl="218"><a data-dc-tpl="219" href="/pergola/" style="color: rgb(183, 202, 218); font-size: 13px;">Pergola</a></li>
+        <li data-dc-tpl="220"><a data-dc-tpl="221" href="/parking-shades/" style="color: rgb(183, 202, 218); font-size: 13px;">Parking Shades</a></li>
+        <li data-dc-tpl="222"><a data-dc-tpl="223" href="/contact/" style="color: rgb(183, 202, 218); font-size: 13px;">Contact</a></li>
+      </ul>
+    </div>
+    <div data-dc-tpl="224">
+      <h4 data-dc-tpl="225" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">Our Address</h4>
+      <p data-dc-tpl="226" style="font-size: 13px; line-height: 1.7; color: rgb(159, 176, 196); margin: 0px;"># 601, Abraj Almamzar,<br data-dc-tpl="227">P.O.Box: 99160, Dubai,<br data-dc-tpl="228">United Arab Emirates</p>
+    </div>
+  </div>
+  <div data-dc-tpl="229" style="max-width: 1600px; margin-inline: auto; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 12px; color: rgb(140, 160, 184);">
+    <span data-dc-tpl="230">© 2026 All Rights Reserved. Master Tents and Shades LLC in Dubai, Sharjah, Abu Dhabi All over UAE.</span>
+  </div></footer><div data-dc-tpl="231" style="display: flex; background: rgb(255, 255, 255); border-top: 2px solid rgb(18, 60, 99);">
+  <a data-dc-tpl="232" href="tel:+971562221906" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99); border-right: 1px solid rgb(231, 222, 198);">
+    <svg data-dc-tpl="233" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#DD8E0E" stroke-width="2"><path data-dc-tpl="234" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1z"></path></svg>
+    Call
+  </a>
+  <a data-dc-tpl="235" href="mailto:info@mastertentsandshades.com" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99); border-right: 1px solid rgb(231, 222, 198);">
+    <svg data-dc-tpl="236" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#DD8E0E" stroke-width="2"><path data-dc-tpl="237" d="M4 4h16v16H4z"></path><path data-dc-tpl="238" d="M4 6l8 7 8-7"></path></svg>
+    Email
+  </a>
+  <a data-dc-tpl="239" href="https://wa.me/971562221906" target="_blank" rel="noopener noreferrer" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99); border-right: 1px solid rgb(231, 222, 198);">
+    <svg data-dc-tpl="240" viewBox="0 0 24 24" width="16" height="16" fill="#DD8E0E"><path data-dc-tpl="241" d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.2-3.7-.8-3.1-1.2-5-4.3-5.2-4.5-.2-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l1.9 1c.2.1.4.2.5.3.1.2.1 1-.1 1.7z"></path></svg>
+    WhatsApp
+  </a>
+  <a data-dc-tpl="242" href="https://maps.google.com/?q=Abraj+Al+Mamzar+Dubai+UAE" target="_blank" rel="noopener noreferrer" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99);">
+    <svg data-dc-tpl="243" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#DD8E0E" stroke-width="2"><path data-dc-tpl="244" d="M12 22s7-7.4 7-12a7 7 0 10-14 0c0 4.6 7 12 7 12z"></path><circle data-dc-tpl="245" cx="12" cy="10" r="2.5"></circle></svg>
+    Location
+  </a></div></div></div>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      ranges: [
+        { title: 'Cantilever Car Parking Shades', items: [
+          { title: 'Arch Cantilever', icon1: true, specs: [{k:'Frame Material',v:'Galvanized Steel'},{k:'Fabric Type',v:'PVC / HDPE'},{k:'Wind Load',v:'High'},{k:'Vented Canopy',v:'Yes'}] },
+          { title: 'Cone Type Cantilever', icon2: true, specs: [{k:'Frame Material',v:'Powder-Coated Steel'},{k:'Fabric Type',v:'PVC'},{k:'UV Protection',v:'95%+'},{k:'Entry Height',v:'Adjustable'}] },
+          { title: 'Pyramid Cantilever', icon3: true, specs: [{k:'Frame Material',v:'Galvanized Steel'},{k:'Fabric Type',v:'PVDF'},{k:'Wind Load',v:'High'},{k:'Solar Integration',v:'Optional'}] },
+          { title: 'Flat Sail Cantilever', icon4: true, specs: [{k:'Fabric Type',v:'PVC'},{k:'Fabric Weight',v:'650–900 GSM'},{k:'Wind Load',v:'Moderate–High'},{k:'Vented Canopy',v:'No (flat profile)'}] },
+          { title: 'Simple Arch Cantilever', icon5: true, specs: [{k:'Frame Material',v:'Galvanized Steel'},{k:'Entry Height',v:'2.2–2.6 m'},{k:'Fabric Type',v:'HDPE'},{k:'Foundation',v:'Standard footing'}] },
+          { title: 'Double Bay Cantilever', icon8: true, specs: [{k:'Weight Load',v:'Dual-bay rated'},{k:'Frame Material',v:'Heavy Steel'},{k:'Entry Height',v:'Standard'},{k:'Foundation',v:'Extended footing'}] },
+        ] },
+        { title: 'Umbrella and Sail Shades', items: [
+          { title: 'Umbrella Type', icon9: true, specs: [{k:'Opening Mechanism',v:'Manual / Motorised'},{k:'Tilt and Rotation',v:'Yes'},{k:'Fabric Type',v:'HDPE / PVC'},{k:'Entry Height',v:'Adjustable'}] },
+          { title: 'Umbrella Parking Shades', icon9: true, specs: [{k:'Opening Mechanism',v:'Motorised Available'},{k:'Fabric Type',v:'PVC'},{k:'Wind Load',v:'Moderate'},{k:'Frame Material',v:'Aluminium'}] },
+          { title: 'Sail Shades', icon4: true, specs: [{k:'Fabric Type',v:'PVC / PVDF'},{k:'Fabric Weight',v:'600–850 GSM'},{k:'Frame Material',v:'Steel Posts'},{k:'UV Protection',v:'High'}] },
+          { title: 'Pyramid Type', icon3: true, specs: [{k:'Fabric Type',v:'PVDF'},{k:'Vented Canopy',v:'Yes'},{k:'Wind Load',v:'High'},{k:'Solar Integration',v:'Optional'}] },
+        ] },
+      ],
+    };
+  }
+}
+</script>
+
+
+</body></html>
