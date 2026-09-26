@@ -1,0 +1,45 @@
+name: Refresh pre-rendered snapshots
+
+on:
+  push:
+    branches: [main]
+    # Avoid re-triggering on the commit this workflow makes back to the repo.
+    paths-ignore:
+      - 'prerendered/**'
+
+permissions:
+  contents: write
+
+jobs:
+  prerender:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install prerender script deps
+        working-directory: prerender
+        run: npm install
+
+      - name: Install headless Chromium
+        working-directory: prerender
+        run: npx playwright install --with-deps chromium
+
+      - name: Generate snapshots
+        working-directory: prerender
+        run: npm run prerender
+
+      - name: Commit refreshed snapshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add prerendered/
+          if git diff --cached --quiet; then
+            echo "No snapshot changes — nothing to commit."
+          else
+            git commit -m "chore: refresh pre-rendered snapshots [skip ci]"
+            git push
+          fi
