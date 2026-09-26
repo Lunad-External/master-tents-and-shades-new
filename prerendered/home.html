@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html><head><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script><style>x-dc{display:none!important}</style><script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style></style><style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.googleapis.com" data-dc-tpl="1"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet" data-dc-tpl="2"><style data-dc-tpl="3">
+  body { margin: 0; font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif; color: #334155; }
+  a { color: #BEA16A; text-decoration: none; }
+  a:hover { color: #1F4357; }
+</style><style data-dc-tpl="1">
+@keyframes mtsDropdownIn { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+</style><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8134357226" data-dc-tpl="2"></script><script data-dc-tpl="3">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8134357226');
+</script></head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="Root"><div data-dc-tpl="4" style="background: rgb(255, 255, 255);">
+
+  <div class="sc-host" data-sc-name="Header" data-dc-tpl="5"><div data-dc-tpl="4" style="background: rgb(255, 255, 255);">
+  <div data-dc-tpl="5" style="background: rgb(255, 255, 255);">
+    <div data-dc-tpl="6" style="max-width: 1600px; margin-inline: auto; padding-inline: 80px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; padding-bottom: 20px;">
+      <div data-dc-tpl="7" style="display: flex; align-items: center; gap: 18px; padding-left: 4px; color: rgb(190, 161, 106);">
+        <a data-dc-tpl="8" href="https://www.linkedin.com/company/mastershades23/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="scp1" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="9" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="10" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2zm2.4 2.9a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM4.4 19.1h3v-9.2h-3v9.2zm5 0h3v-5.1c0-1.2.55-1.9 1.6-1.9 1 0 1.4.7 1.4 1.9v5.1h3v-5.6c0-2.5-1.3-3.8-3.2-3.8-1.4 0-2.2.7-2.6 1.4h-.05V9.9h-3.15c.04.85 0 9.2 0 9.2z"></path></svg></a>
+        <a data-dc-tpl="11" href="https://www.instagram.com/mastershade23/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="scp1" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="12" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect data-dc-tpl="13" x="3" y="3" width="18" height="18" rx="5"></rect><circle data-dc-tpl="14" cx="12" cy="12" r="4"></circle><circle data-dc-tpl="15" cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+        <a data-dc-tpl="16" href="https://twitter.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="scp1" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="17" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="18" d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.9 3.7A11.5 11.5 0 0 1 3.5 4.7a4 4 0 0 0 1.3 5.4c-.7 0-1.3-.2-1.8-.5 0 2 1.4 3.6 3.2 4-.6.2-1.2.2-1.8.1a4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18.1a11.4 11.4 0 0 0 6.3 1.8c7.5 0 11.6-6.2 11.6-11.6v-.5c.8-.6 1.5-1.3 2.1-2z"></path></svg></a>
+        <a data-dc-tpl="19" href="mailto:info@mastertentsandshades.com" aria-label="Email" class="scp1" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="20" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="21" d="M22.1 3.2 1.9 11c-.7.27-.68 1.28.03 1.52l5.05 1.68 1.9 5.5c.2.6.98.76 1.4.28l2.6-2.9 5.06 3.7c.5.37 1.22.1 1.36-.52l3.5-15.4c.15-.68-.53-1.24-1.17-.98zM8.9 13.9 18.6 6.6l-8.5 8.9-.4 3.1-.8-4.7z"></path></svg></a>
+        <a data-dc-tpl="22" href="https://www.facebook.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="scp1" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="23" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="24" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5H16v-7.1h2.4l.36-2.8H16V9.32c0-.8.23-1.35 1.39-1.35H18.8V5.47c-.26-.04-1.1-.11-2.09-.11-2.07 0-3.48 1.26-3.48 3.58v2.16h-2.34v2.8h2.34V22H3.5A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2z"></path></svg></a>
+        <a data-dc-tpl="25" href="https://api.whatsapp.com/send/?phone=971545410602&amp;text=Hello%0D%0AHow+can+we+help%21&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="scp1" style="color: rgb(186, 165, 115);"><svg data-dc-tpl="26" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><g data-dc-tpl="27" fill="currentColor"><path data-dc-tpl="28" d="m.054 24 1.687-6.163a11.869 11.869 0 0 1-1.588-5.945C.156 5.335 5.493 0 12.05 0c3.182.001 6.17 1.24 8.415 3.488a11.819 11.819 0 0 1 3.481 8.413c-.002 6.557-5.34 11.893-11.896 11.893h-.005c-1.99-.001-3.947-.5-5.685-1.448L.054 24zm6.598-3.807.361.214a9.875 9.875 0 0 0 5.033 1.378h.004c5.45 0 9.886-4.434 9.888-9.884a9.824 9.824 0 0 0-2.894-6.994 9.823 9.823 0 0 0-6.99-2.898c-5.454 0-9.89 4.434-9.892 9.884a9.86 9.86 0 0 0 1.512 5.26l.235.374-.999 3.648 3.742-.982z"></path><path data-dc-tpl="29" fill-rule="evenodd" clip-rule="evenodd" d="M9.077 6.92c-.242-.579-.487-.5-.67-.51-.172-.008-.37-.01-.569-.01s-.52.074-.792.372c-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.873.117.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.174.199-.347.223-.644.075-.298-.15-1.256-.463-2.39-1.475-.885-.788-1.481-1.761-1.655-2.059-.173-.297-.018-.458.13-.606.135-.133.298-.347.447-.52.148-.174.198-.298.297-.497.099-.198.05-.372-.025-.52-.074-.149-.669-1.612-.916-2.207z"></path></g></svg></a>
+      </div>
+      <div data-dc-tpl="30" style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px;">
+        <a data-dc-tpl="31" href="tel:+971562221906" style="display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 500; color: rgb(190, 161, 106);">
+          <svg data-dc-tpl="32" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path data-dc-tpl="33" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+          CALL US: +971 56 222 1906
+        </a>
+        <a data-dc-tpl="34" href="/contact/" style="display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 500; color: rgb(190, 161, 106);">
+          <svg data-dc-tpl="35" id="nc_icon" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 24 24" width="18" height="18"><g data-dc-tpl="36" fill="#baa573" class="nc-icon-wrapper"><path data-dc-tpl="37" d="M17 16c-2.951 0-5.403-.639-7-1.712V16c0 1.657 3.134 3 7 3s7-1.343 7-3v-1.712C22.403 15.361 19.951 16 17 16zM17 21c-2.951 0-5.403-.639-7-1.712V21c0 1.657 3.134 3 7 3s7-1.343 7-3v-1.712C22.403 20.361 19.951 21 17 21z"></path><ellipse data-dc-tpl="38" cx="17" cy="11" rx="7" ry="3"></ellipse><ellipse data-dc-tpl="39" cx="7" cy="3" rx="7" ry="3"></ellipse><path data-dc-tpl="40" d="M8 17.973c-.327.016-.659.027-1 .027-2.951 0-5.403-.639-7-1.712V18c0 1.657 3.134 3 7 3 .34 0 .673-.014 1-.034v-2.993zM8 12.973c-.327.016-.659.027-1 .027-2.951 0-5.403-.639-7-1.712V13c0 1.657 3.134 3 7 3 .34 0 .673-.014 1-.034v-2.993zM9.92 7.766A17.81 17.81 0 0 1 7 8c-2.951 0-5.403-.639-7-1.712V8c0 1.657 3.134 3 7 3 .341 0 .674-.014 1.003-.034.012-1.263.707-2.36 1.917-3.2z"></path></g></svg>
+          GET A QUOTE
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div data-dc-tpl="41" style="background: rgb(255, 255, 255); position: relative;">
+    <div data-dc-tpl="42" style="max-width: 1600px; margin-inline: auto; padding-inline: 80px; display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px;">
+      <a data-dc-tpl="43" href="/" aria-label="Master Tents and Shades" style="display: flex; align-items: center; gap: 10px;">
+        <img data-dc-tpl="44" src="img/mastr-tents-and-shades-logo.jpg" alt="Master Tents and Shades" style="height: 70px; width: auto;">
+      </a>
+
+      
+      <nav data-dc-tpl="46">
+        <ul data-dc-tpl="47" style="display: flex; align-items: center; gap: 24px; list-style: none; margin: 0px; padding: 0px;">
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/about/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">About Us</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/tents/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Tents</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/pergola/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Pergola</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/parking-shades/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Parking Shades</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/shades/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Shades</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/contact/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Contact</span></a>
+              </li>
+          
+        </ul>
+      </nav>
+      
+
+      
+    </div>
+
+    
+  </div>
+
+  <div data-dc-tpl="88" style="position: fixed; left: 0px; right: 0px; top: 0px; z-index: 50; background: rgb(190, 161, 106); transition: transform 0.3s; transform: translateY(-100%);">
+    <div data-dc-tpl="89" style="margin-inline: auto; display: flex; align-items: stretch; max-width: 100%;">
+      
+      <a data-dc-tpl="91" href="/" style="flex-shrink: 0; display: flex; align-items: center; background: rgb(190, 161, 106); padding: 12px 32px;">
+        <img data-dc-tpl="92" src="img/icon-1.png" alt="Master Tents and Shades" style="height: 80px; width: auto;">
+      </a>
+      
+      <div data-dc-tpl="93" style="display: grid; grid-template-columns: repeat(3, 1fr); flex: 1 1 0%; border-left: 1px solid rgba(255, 255, 255, 0.4);">
+        <div data-dc-tpl="94" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); border-right: 1px solid rgba(255, 255, 255, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="95" style="margin: 0px; font-size: 15px; font-weight: 600;">CALL US:</p>
+          <a data-dc-tpl="96" href="tel:+971562221906" style="font-size: 15px; font-weight: 600; color: rgb(255, 255, 255);">+971 56 222 1906</a>
+        </div>
+        <div data-dc-tpl="97" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); border-right: 1px solid rgba(255, 255, 255, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="98" style="margin: 0px; font-size: 15px; font-weight: 600;">Office time</p>
+          <p data-dc-tpl="99" style="margin: 0px; font-size: 15px; font-weight: 600;">09-00 : 18:00</p>
+        </div>
+        <div data-dc-tpl="100" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="101" style="margin: 0px; font-size: 15px; font-weight: 600;">Mail Us:</p>
+          <a data-dc-tpl="102" href="mailto:info@mastertentsandshades.com" style="font-size: 15px; font-weight: 600; color: rgb(255, 255, 255);">info@mastertentsandshades.com</a>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+
+  
+  <section data-dc-tpl="6" style="position: relative; height: 560px; overflow: hidden; background-attachment: fixed;">
+    
+      <div data-dc-tpl="8" style="position: absolute; inset: 0px; background-image: url(&quot;img/1.webp&quot;); background-size: cover; background-position: center center; background-attachment: fixed; opacity: 1; transition: opacity 1.2s ease-in-out;"></div>
+    
+      <div data-dc-tpl="8" style="position: absolute; inset: 0px; background-image: url(&quot;img/2.webp&quot;); background-size: cover; background-position: center center; background-attachment: fixed; opacity: 0; transition: opacity 1.2s ease-in-out;"></div>
+    
+      <div data-dc-tpl="8" style="position: absolute; inset: 0px; background-image: url(&quot;img/3.webp&quot;); background-size: cover; background-position: center center; background-attachment: fixed; opacity: 0; transition: opacity 1.2s ease-in-out;"></div>
+    
+      <div data-dc-tpl="8" style="position: absolute; inset: 0px; background-image: url(&quot;img/4.webp&quot;); background-size: cover; background-position: center center; background-attachment: fixed; opacity: 0; transition: opacity 1.2s ease-in-out;"></div>
+    
+      <div data-dc-tpl="8" style="position: absolute; inset: 0px; background-image: url(&quot;img/5.webp&quot;); background-size: cover; background-position: center center; background-attachment: fixed; opacity: 0; transition: opacity 1.2s ease-in-out;"></div>
+    
+      <div data-dc-tpl="8" style="position: absolute; inset: 0px; background-image: url(&quot;img/6.webp&quot;); background-size: cover; background-position: center center; background-attachment: fixed; opacity: 0; transition: opacity 1.2s ease-in-out;"></div>
+    
+    <div data-dc-tpl="9" style="position: absolute; inset: 0px; background: rgba(0, 0, 0, 0.25);"></div>
+  </section>
+
+  
+  <main data-dc-tpl="10" class="mts-richtext">
+    <section data-dc-tpl="11" style="padding: 30px 0px 15px;">
+      <div data-dc-tpl="12" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px;">
+        <h1 data-dc-tpl="13" style="margin: 0px 0px 16px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-weight: 400; font-size: 25px; color: rgb(31, 67, 87); line-height: 1.3;">Dubai's #1 Supplier of Car Parking Shades, Pergolas and Tents for Homes, Businesses and Events</h1>
+        <p data-dc-tpl="14" style="margin: 0px 0px 16px; font-size: 16px; line-height: 1.7; color: rgb(45, 56, 66);">Master Tents and Shades LLC is a leading Tents &amp; Shades Supplier and Also Car Parking Shades Suppliers and Manufacturer located in Dubai Sharjah, Dubai, Abu Dhabi, and all Emirates of UAE. We specialized in manufacturing and supplying of all kinds of steel structures, aluminum structures and outdoor shade structures with all types of technical fabric such as PVC, PTFE, ETFE, PVDF, HDPE (KNITTED), ACRYLIC, Polythene, Canvas, and Tarpaulins. We offer a wide range of sunshade structure shades products including all types of car parking shades, Tents and shades, tensile fabric shade structures all types of Swimming pool shades, all types of Outdoor sunshades, all types of Beach shades, all types of Pergola shades, Shades sails, Outdoor umbrella shades or Patio shades, Awning permanent or retractable shades, School shades, Sitting area shades, masjid shades, Roof shades, many more and all types of Tents and Marquee Products includes Arabian tent, Majlis tent, Dome tent, Warehouse tent or Sheds, Wedding tent or Marquee, Pagoda tent, Gazebo tent, beach umbrella, Labor tent and many more. Among the items, we manufacture and supply tents and shades both in standard and customized designs as per the client’s requirements Read more...</p>
+        <p data-dc-tpl="15" style="margin: 0px 0px 12px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-weight: 400; font-size: 25px; color: rgb(31, 67, 87);">Car Parking and Tent Shade Products</p>
+        <p data-dc-tpl="16" style="margin: 0px 0px 16px; text-align: center; font-size: 18px; font-weight: 500; color: rgb(31, 67, 87);">explore latest and modern design all type of shades 2025</p>
+        <p data-dc-tpl="17" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);">Master Tents and Shades are temporary structures that provide shelter from the sun, rain, and wind. They are commonly used for outdoor events, camping, and recreational activities. Tents are typically made of fabric or other lightweight materials and are supported by poles or a frame. Shades are often made of fabric or other materials and are used to provide protection from the sun. Both tents and shades come in a variety of sizes and styles to suit different needs and preferences and more.</p>
+      </div>
+    </section>
+
+    
+    <section data-dc-tpl="18" style="padding: 15px 0px;">
+      <div data-dc-tpl="19" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px;">
+        <div data-dc-tpl="20" style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 20px;">
+          
+            <div data-dc-tpl="22" style="flex: 1 1 280px;">
+              <img data-dc-tpl="23" src="img/Pagoda-Tents-660x454x0x110x660x236x1721140983.webp" alt="Tents Solutions" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+              <p data-dc-tpl="24" style="margin-top: 8px; text-align: center; font-size: 18px; font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Tents Solutions</span></p>
+            </div>
+          
+            <div data-dc-tpl="22" style="flex: 1 1 280px;">
+              <img data-dc-tpl="23" src="img/Cantilever-Car-Parking-Shade-Structure-660x496x0x118x660x258x1721130036.webp" alt="Car Parking Shades" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+              <p data-dc-tpl="24" style="margin-top: 8px; text-align: center; font-size: 18px; font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Car Parking Shades</span></p>
+            </div>
+          
+            <div data-dc-tpl="22" style="flex: 1 1 280px;">
+              <img data-dc-tpl="23" src="img/New-Pergola-Designs-660x492x0x118x660x256x1721141039.webp" alt="Pergola Shades" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+              <p data-dc-tpl="24" style="margin-top: 8px; text-align: center; font-size: 18px; font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Pergola Shades</span></p>
+            </div>
+          
+        </div>
+        <div data-dc-tpl="25" style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 20px;">
+          
+            <div data-dc-tpl="27" style="flex: 1 1 280px;">
+              <img data-dc-tpl="28" src="img/Swimming-pool-shades-660x496x0x118x660x258x1724907368.webp" alt="Swimming Pool Shades" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+              <p data-dc-tpl="29" style="margin-top: 8px; text-align: center; font-size: 18px; font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Swimming Pool Shades</span></p>
+            </div>
+          
+            <div data-dc-tpl="27" style="flex: 1 1 280px;">
+              <img data-dc-tpl="28" src="img/umbrella-660x632x0x152x660x328x1724156799.webp" alt="Beach Umbrella Shades" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+              <p data-dc-tpl="29" style="margin-top: 8px; text-align: center; font-size: 18px; font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">Beach Umbrella Shades</span></p>
+            </div>
+          
+            <div data-dc-tpl="27" style="flex: 1 1 280px;">
+              <img data-dc-tpl="28" src="img/sail-shade-benefits-660x496x0x0x660x258x1721211588.webp" alt="PVC Tarpaulin | PTEF | HDPE" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+              <p data-dc-tpl="29" style="margin-top: 8px; text-align: center; font-size: 18px; font-weight: 500; color: rgb(31, 67, 87);"><span class="sc-interp">PVC Tarpaulin | PTEF | HDPE</span></p>
+            </div>
+          
+        </div>
+        <p data-dc-tpl="30" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);">Master Tents and Shades is using the latest technology 2025 and highly advanced machinery in cooperation with our experienced team of engineers, technicians, and fabricators. We have successfully made some recurring tents and shade structures that help in benefiting hundreds in outdoor living in UAE and GCC.</p>
+      </div>
+    </section>
+
+    
+    <section data-dc-tpl="31" style="padding: 30px 0px 15px;">
+      <div data-dc-tpl="32" style="max-width: 1600px; margin-inline: auto; padding-inline: 40px;">
+        <p data-dc-tpl="33" style="margin: 0px 0px 16px; text-align: center; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-weight: 400; font-size: 25px; color: rgb(31, 67, 87);">About Master Tents and Shades</p>
+        <p data-dc-tpl="34" style="margin: 0px 0px 16px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);">About Master Tents and Shades LLC We at Master Tents &amp; Shades excel in the Design, Manufacturing, and Installation of a wide array of fabric and metal structures be it steel/aluminum/fabric and we provide turnkey solutions including the RCC works. Our wide range of products includes all kinds of Aluminum or Steel tents, all kinds of Car Parking Shades, all kinds of Tensile Membrane Structures, all kinds of Aluminum Pergolas, all kinds of Sail Shades, all kinds of Outdoor Umbrella Shades, pergola sheds, beach umbrella sheds, all kinds of Awning Shades, all kinds of PVC fabrics, Tarpaulins, HDPE fabrics and many more.</p>
+        <p data-dc-tpl="35" style="margin: 0px 0px 20px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);">Master Tents and Shades provides practical and smart solutions for terraces and restaurants, helping extend the high season despite weather fluctuations from decorating a restaurant to building a customized mobile space, marquee design enthusiasts, and hospitality improvement professionals across the region. Master Tents and Shades is able to turn ideas into reality using its unique collection of outdoor furniture and pagodas, marquees or mobile halls. In addition, our entire range of tents and tensile, canopies, car parking shades and umbrellas can be well adapted to any space, demand, and budget. Our products and solutions are tailored to optimize space and offer comfort and relaxation. this is all about master tents and shades.</p>
+
+        
+          <details data-dc-tpl="37" open="" style="margin-bottom: -1px; border-radius: 10px; border: 1px solid rgb(158, 158, 158); background: rgb(255, 255, 255);">
+            <summary data-dc-tpl="38" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 15px; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 20px; line-height: 1.6; color: rgb(45, 56, 66); cursor: pointer; list-style: none;">
+              <span data-dc-tpl="39"><span class="sc-interp">Products and Shades</span></span>
+              
+                <svg data-dc-tpl="41" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2D3842" stroke-width="1.5" style="transform: rotate(180deg); flex-shrink: 0;"><path data-dc-tpl="42" d="M5 9l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              
+              
+            </summary>
+            <div data-dc-tpl="46" style="padding: 0px 15px 16px;">
+              
+                <ul data-dc-tpl="48" style="margin: 0px; padding-left: 20px; color: rgb(31, 67, 87); font-size: 16px; line-height: 1.6; font-weight: 500;">
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Tents Manufacturing, Supply, and Installation</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Rental Tents</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Traditional Luxury Arabic Tents</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Car Parking Shades</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Tensile Shade Structure</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Swimming Pool Shades</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Outdoor Sun Shades</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Patio Umbrella Shades</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">Beach Shades</span></li>
+                  
+                    <li data-dc-tpl="50"><span class="sc-interp">PVC Tarpaulin | PTFE Fabric | HDPE Fabric</span></li>
+                  
+                </ul>
+              
+              
+            </div>
+          </details>
+        
+          <details data-dc-tpl="37" style="margin-bottom: -1px; border-radius: 10px; border: 1px solid rgb(158, 158, 158); background: rgb(255, 255, 255);">
+            <summary data-dc-tpl="38" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 15px; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 20px; line-height: 1.6; color: rgb(45, 56, 66); cursor: pointer; list-style: none;">
+              <span data-dc-tpl="39"><span class="sc-interp">Why Choose Us</span></span>
+              
+              
+                <svg data-dc-tpl="44" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2D3842" stroke-width="1.5" style="flex-shrink: 0;"><path data-dc-tpl="45" d="M5 9l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              
+            </summary>
+            <div data-dc-tpl="46" style="padding: 0px 15px 16px;">
+              
+              
+                <p data-dc-tpl="52" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);"><span class="sc-interp">Our team in Dubai specializes in supplying a diverse range of car parking shades and tents tailored for various sectors, including aviation, sports, and military. We provide customized solutions to meet the specific requirements of each industry, ensuring high-quality and durable structures that cater to their unique needs. Our expertise extends to designing and installing parking shades and tents that are not only functional but also aesthetically pleasing, enhancing the overall environment and functionality of the spaces they serve.</span></p>
+              
+            </div>
+          </details>
+        
+          <details data-dc-tpl="37" style="margin-bottom: -1px; border-radius: 10px; border: 1px solid rgb(158, 158, 158); background: rgb(255, 255, 255);">
+            <summary data-dc-tpl="38" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 15px; font-family: &quot;DM Serif Text&quot;, Georgia, serif; font-size: 20px; line-height: 1.6; color: rgb(45, 56, 66); cursor: pointer; list-style: none;">
+              <span data-dc-tpl="39"><span class="sc-interp">Get A Quotation</span></span>
+              
+              
+                <svg data-dc-tpl="44" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2D3842" stroke-width="1.5" style="flex-shrink: 0;"><path data-dc-tpl="45" d="M5 9l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              
+            </summary>
+            <div data-dc-tpl="46" style="padding: 0px 15px 16px;">
+              
+              
+                <p data-dc-tpl="52" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(51, 65, 85);"><span class="sc-interp">Mobile: +971 56 222 1906, Office Tel: +971 4 220 3352, Email: info @mastertentsandshades.com</span></p>
+              
+            </div>
+          </details>
+        
+      </div>
+    </section>
+  </main>
+
+  
+  <footer data-dc-tpl="53" style="color: rgb(255, 255, 255); background-image: linear-gradient(rgb(31, 67, 87) 0%, rgb(35, 21, 26) 100%);">
+    <div data-dc-tpl="54" style="max-width: 1200px; margin-inline: auto; padding: 40px 15px 16px;">
+      <div data-dc-tpl="55" style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
+        <div data-dc-tpl="56" style="flex: 1 1 280px; font-size: 16px; line-height: 32px; color: rgb(255, 255, 255);">
+          <p data-dc-tpl="57" style="margin: 0px 0px 8px; font-weight: 600; line-height: 28.8px;">Master Tents and Shades LLC</p>
+          <p data-dc-tpl="58" style="margin: 0px;"><a data-dc-tpl="59" href="tel:+97142203352" style="color: rgb(255, 255, 255);">+971 4 220 3352</a> | <a data-dc-tpl="60" href="tel:+971562221906" style="color: rgb(255, 255, 255);">+971 56 222 1906</a></p>
+          <p data-dc-tpl="61" style="margin: 0px;"><a data-dc-tpl="62" href="mailto:info@mastertentsandshades.com" style="color: rgb(255, 255, 255);">info@mastertentsandshades.com</a></p>
+          <p data-dc-tpl="63" style="margin: 0px;"># 601, Abraj Almamzar</p>
+          <p data-dc-tpl="64" style="margin: 0px;">P.O.Box: 99160, Dubai</p>
+          <p data-dc-tpl="65" style="margin: 0px;">United Arab Emirates</p>
+        </div>
+        <div data-dc-tpl="66" style="flex: 1 1 200px; display: flex; flex-direction: column; align-items: center;">
+          <a data-dc-tpl="67" href="/"><img data-dc-tpl="68" src="img/icon-1.png" alt="Master Tents and Shades" style="height: 139px; width: auto;"></a>
+          <div data-dc-tpl="69" style="margin-top: 8px; display: flex; gap: 14px; color: rgb(255, 255, 255);">
+        <a data-dc-tpl="70" href="https://www.linkedin.com/company/mastershades23/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="scp0" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="71" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="72" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2zm2.4 2.9a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM4.4 19.1h3v-9.2h-3v9.2zm5 0h3v-5.1c0-1.2.55-1.9 1.6-1.9 1 0 1.4.7 1.4 1.9v5.1h3v-5.6c0-2.5-1.3-3.8-3.2-3.8-1.4 0-2.2.7-2.6 1.4h-.05V9.9h-3.15c.04.85 0 9.2 0 9.2z"></path></svg></a>
+        <a data-dc-tpl="73" href="https://www.instagram.com/mastershade23/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="scp0" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="74" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect data-dc-tpl="75" x="3" y="3" width="18" height="18" rx="5"></rect><circle data-dc-tpl="76" cx="12" cy="12" r="4"></circle><circle data-dc-tpl="77" cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+        <a data-dc-tpl="78" href="https://twitter.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="scp0" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="79" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="80" d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.9 3.7A11.5 11.5 0 0 1 3.5 4.7a4 4 0 0 0 1.3 5.4c-.7 0-1.3-.2-1.8-.5 0 2 1.4 3.6 3.2 4-.6.2-1.2.2-1.8.1a4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18.1a11.4 11.4 0 0 0 6.3 1.8c7.5 0 11.6-6.2 11.6-11.6v-.5c.8-.6 1.5-1.3 2.1-2z"></path></svg></a>
+        <a data-dc-tpl="81" href="mailto:info@mastertentsandshades.com" aria-label="Email" class="scp0" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="82" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="83" d="M22.1 3.2 1.9 11c-.7.27-.68 1.28.03 1.52l5.05 1.68 1.9 5.5c.2.6.98.76 1.4.28l2.6-2.9 5.06 3.7c.5.37 1.22.1 1.36-.52l3.5-15.4c.15-.68-.53-1.24-1.17-.98zM8.9 13.9 18.6 6.6l-8.5 8.9-.4 3.1-.8-4.7z"></path></svg></a>
+        <a data-dc-tpl="84" href="https://www.facebook.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="scp0" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="85" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path data-dc-tpl="86" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5H16v-7.1h2.4l.36-2.8H16V9.32c0-.8.23-1.35 1.39-1.35H18.8V5.47c-.26-.04-1.1-.11-2.09-.11-2.07 0-3.48 1.26-3.48 3.58v2.16h-2.34v2.8h2.34V22H3.5A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2z"></path></svg></a>
+        <a data-dc-tpl="87" href="https://api.whatsapp.com/send/?phone=971545410602&amp;text=Hello%0D%0AHow+can+we+help%21&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="scp0" style="color: rgb(255, 255, 255);"><svg data-dc-tpl="88" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26"><g data-dc-tpl="89" fill="currentColor"><path data-dc-tpl="90" d="m.054 24 1.687-6.163a11.869 11.869 0 0 1-1.588-5.945C.156 5.335 5.493 0 12.05 0c3.182.001 6.17 1.24 8.415 3.488a11.819 11.819 0 0 1 3.481 8.413c-.002 6.557-5.34 11.893-11.896 11.893h-.005c-1.99-.001-3.947-.5-5.685-1.448L.054 24zm6.598-3.807.361.214a9.875 9.875 0 0 0 5.033 1.378h.004c5.45 0 9.886-4.434 9.888-9.884a9.824 9.824 0 0 0-2.894-6.994 9.823 9.823 0 0 0-6.99-2.898c-5.454 0-9.89 4.434-9.892 9.884a9.86 9.86 0 0 0 1.512 5.26l.235.374-.999 3.648 3.742-.982z"></path><path data-dc-tpl="91" fill-rule="evenodd" clip-rule="evenodd" d="M9.077 6.92c-.242-.579-.487-.5-.67-.51-.172-.008-.37-.01-.569-.01s-.52.074-.792.372c-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.873.117.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.174.199-.347.223-.644.075-.298-.15-1.256-.463-2.39-1.475-.885-.788-1.481-1.761-1.655-2.059-.173-.297-.018-.458.13-.606.135-.133.298-.347.447-.52.148-.174.198-.298.297-.497.099-.198.05-.372-.025-.52-.074-.149-.669-1.612-.916-2.207z"></path></g></svg></a>
+          </div>
+        </div>
+        <div data-dc-tpl="92" style="flex: 1 1 280px; font-size: 16px; line-height: 32px; text-align: right;">
+          <p data-dc-tpl="93" style="margin: 0px 0px 8px; font-weight: 600; line-height: 25.6px;">Our Products / Services</p>
+          <ul data-dc-tpl="94" style="margin: 0px; padding: 0px; list-style: none;">
+            
+              <li data-dc-tpl="96"><a data-dc-tpl="97" href="/pergola-shades/" style="color: rgb(242, 244, 247);"><span class="sc-interp">All kind of Pergola Shades</span></a></li>
+            
+              <li data-dc-tpl="96"><a data-dc-tpl="97" href="/parking-shades/" style="color: rgb(242, 244, 247);"><span class="sc-interp">All kind of Parking Shades</span></a></li>
+            
+              <li data-dc-tpl="96"><a data-dc-tpl="97" href="/shades/" style="color: rgb(242, 244, 247);"><span class="sc-interp">All kind of Tensile Shades</span></a></li>
+            
+              <li data-dc-tpl="96"><a data-dc-tpl="97" href="/awning-shades/" style="color: rgb(242, 244, 247);"><span class="sc-interp">New Awning Shades</span></a></li>
+            
+              <li data-dc-tpl="96"><a data-dc-tpl="97" href="/umbrella-shades/" style="color: rgb(242, 244, 247);"><span class="sc-interp">New Umbrella Shades</span></a></li>
+            
+          </ul>
+        </div>
+      </div>
+      <hr data-dc-tpl="98" style="margin-top: 24px; border-width: 2px 0px 0px; border-style: solid none none; border-color: rgba(31, 67, 87, 0.75) currentcolor currentcolor; border-image: none;">
+      <p data-dc-tpl="99" style="padding: 16px 0px; text-align: center; font-size: 16px; color: rgba(255, 255, 255, 0.45);">© 2026 All Rights Reserved. Master Tents and Shades LLC in Dubai, Sharjah, Abu Dhabi All over UAE.</p>
+    </div>
+  </footer></div></div></div>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  state = { scrolled: false, activeSlide: 0, accordionOpen: { 0: true } };
+  heroSrcs = ['img/1.webp','img/2.webp','img/3.webp','img/4.webp','img/5.webp','img/6.webp'];
+
+  componentDidMount() {
+    this._onScroll = () => this.setState({ scrolled: window.scrollY > 260 });
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._timer = setInterval(() => {
+      this.setState(s => ({ activeSlide: (s.activeSlide + 1) % 6 }));
+    }, 4000);
+    this._onResize = () => this.setState({});
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
+    clearInterval(this._timer);
+  }
+
+  getMenuData() {
+    return [];
+  }
+
+  renderVals() {
+    const heroSrc = this.heroSrcs[this.state.activeSlide] || this.heroSrcs[0];
+    const heroLayers = this.heroSrcs.map((src, i) => ({
+      style: `position:absolute;inset:0;background-image:url(${src});background-size:cover;background-position:center;background-attachment:fixed;opacity:${i === this.state.activeSlide ? 1 : 0};transition:opacity 1.2s ease-in-out;`,
+    }));
+
+    const footerLinks = [
+      { label: 'All kind of Pergola Shades', href: 'Pergola Shades.dc.html' },
+      { label: 'All kind of Parking Shades', href: 'Parking Shades.dc.html' },
+      { label: 'All kind of Tensile Shades', href: 'Shades.dc.html' },
+      { label: 'New Awning Shades', href: 'Awning Shades.dc.html' },
+      { label: 'New Umbrella Shades', href: 'Umbrella Shades.dc.html' },
+    ];
+
+    const tilesRow1 = [
+      { img: 'img/Pagoda-Tents-660x454x0x110x660x236x1721140983.webp', label: 'Tents Solutions' },
+      { img: 'img/Cantilever-Car-Parking-Shade-Structure-660x496x0x118x660x258x1721130036.webp', label: 'Car Parking Shades' },
+      { img: 'img/New-Pergola-Designs-660x492x0x118x660x256x1721141039.webp', label: 'Pergola Shades' },
+    ];
+    const tilesRow2 = [
+      { img: 'img/Swimming-pool-shades-660x496x0x118x660x258x1724907368.webp', label: 'Swimming Pool Shades' },
+      { img: 'img/umbrella-660x632x0x152x660x328x1724156799.webp', label: 'Beach Umbrella Shades' },
+      { img: 'img/sail-shade-benefits-660x496x0x0x660x258x1721211588.webp', label: 'PVC Tarpaulin | PTEF | HDPE' },
+    ];
+
+    const accordionRaw = [
+      { title: 'Products and Shades', isList: true, isText: false, items: [
+        'Tents Manufacturing, Supply, and Installation','Rental Tents','Traditional Luxury Arabic Tents','Car Parking Shades','Tensile Shade Structure','Swimming Pool Shades','Outdoor Sun Shades','Patio Umbrella Shades','Beach Shades','PVC Tarpaulin | PTFE Fabric | HDPE Fabric',
+      ]},
+      { title: 'Why Choose Us', isList: false, isText: true, text: 'Our team in Dubai specializes in supplying a diverse range of car parking shades and tents tailored for various sectors, including aviation, sports, and military. We provide customized solutions to meet the specific requirements of each industry, ensuring high-quality and durable structures that cater to their unique needs. Our expertise extends to designing and installing parking shades and tents that are not only functional but also aesthetically pleasing, enhancing the overall environment and functionality of the spaces they serve.' },
+      { title: 'Get A Quotation', isList: false, isText: true, text: 'Mobile: +971 56 222 1906, Office Tel: +971 4 220 3352, Email: info @mastertentsandshades.com' },
+    ];
+    const accordion = accordionRaw.map((a, i) => {
+      const isOpen = !!this.state.accordionOpen[i];
+      return {
+        ...a,
+        open: isOpen,
+        closed: !isOpen,
+      };
+    });
+
+    return {
+      footerLinks, tilesRow1, tilesRow2, accordion, heroSrc, heroLayers,
+    };
+  }
+}
+</script>
+
+
+</body></html>

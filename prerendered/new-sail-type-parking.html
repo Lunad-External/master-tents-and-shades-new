@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html><head><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script><style>x-dc{display:none!important}</style><script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.googleapis.com" data-dc-tpl="1"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet" data-dc-tpl="2"><style data-dc-tpl="3">
+  body { margin: 0; font-family: 'Inter', sans-serif; color: #5B6472; }
+  a { color: #DD8E0E; text-decoration: none; }
+</style><style></style><style data-dc-tpl="1">
+@keyframes mtsDropdownIn { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+</style><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8134357226" data-dc-tpl="2"></script><script data-dc-tpl="3">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8134357226');
+</script></head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="Root"><div class="sc-host" data-sc-name="Header" data-dc-tpl="4"><div data-dc-tpl="4" style="background: rgb(255, 255, 255);">
+  <div data-dc-tpl="5" style="background: rgb(255, 255, 255);">
+    <div data-dc-tpl="6" style="max-width: 1600px; margin-inline: auto; padding-inline: 80px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; padding-bottom: 20px;">
+      <div data-dc-tpl="7" style="display: flex; align-items: center; gap: 18px; padding-left: 4px; color: rgb(190, 161, 106);">
+        <a data-dc-tpl="8" href="https://www.linkedin.com/company/mastershades23/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="9" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="10" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2zm2.4 2.9a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM4.4 19.1h3v-9.2h-3v9.2zm5 0h3v-5.1c0-1.2.55-1.9 1.6-1.9 1 0 1.4.7 1.4 1.9v5.1h3v-5.6c0-2.5-1.3-3.8-3.2-3.8-1.4 0-2.2.7-2.6 1.4h-.05V9.9h-3.15c.04.85 0 9.2 0 9.2z"></path></svg></a>
+        <a data-dc-tpl="11" href="https://www.instagram.com/mastershade23/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="12" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect data-dc-tpl="13" x="3" y="3" width="18" height="18" rx="5"></rect><circle data-dc-tpl="14" cx="12" cy="12" r="4"></circle><circle data-dc-tpl="15" cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+        <a data-dc-tpl="16" href="https://twitter.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="17" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="18" d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.9 3.7A11.5 11.5 0 0 1 3.5 4.7a4 4 0 0 0 1.3 5.4c-.7 0-1.3-.2-1.8-.5 0 2 1.4 3.6 3.2 4-.6.2-1.2.2-1.8.1a4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18.1a11.4 11.4 0 0 0 6.3 1.8c7.5 0 11.6-6.2 11.6-11.6v-.5c.8-.6 1.5-1.3 2.1-2z"></path></svg></a>
+        <a data-dc-tpl="19" href="mailto:info@mastertentsandshades.com" aria-label="Email" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="20" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="21" d="M22.1 3.2 1.9 11c-.7.27-.68 1.28.03 1.52l5.05 1.68 1.9 5.5c.2.6.98.76 1.4.28l2.6-2.9 5.06 3.7c.5.37 1.22.1 1.36-.52l3.5-15.4c.15-.68-.53-1.24-1.17-.98zM8.9 13.9 18.6 6.6l-8.5 8.9-.4 3.1-.8-4.7z"></path></svg></a>
+        <a data-dc-tpl="22" href="https://www.facebook.com/mastershade23" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="scp0" style="color: rgb(190, 161, 106);"><svg data-dc-tpl="23" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path data-dc-tpl="24" fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2h17A1.5 1.5 0 0 1 22 3.5v17a1.5 1.5 0 0 1-1.5 1.5H16v-7.1h2.4l.36-2.8H16V9.32c0-.8.23-1.35 1.39-1.35H18.8V5.47c-.26-.04-1.1-.11-2.09-.11-2.07 0-3.48 1.26-3.48 3.58v2.16h-2.34v2.8h2.34V22H3.5A1.5 1.5 0 0 1 2 20.5v-17A1.5 1.5 0 0 1 3.5 2z"></path></svg></a>
+        <a data-dc-tpl="25" href="https://api.whatsapp.com/send/?phone=971545410602&amp;text=Hello%0D%0AHow+can+we+help%21&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="scp0" style="color: rgb(186, 165, 115);"><svg data-dc-tpl="26" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><g data-dc-tpl="27" fill="currentColor"><path data-dc-tpl="28" d="m.054 24 1.687-6.163a11.869 11.869 0 0 1-1.588-5.945C.156 5.335 5.493 0 12.05 0c3.182.001 6.17 1.24 8.415 3.488a11.819 11.819 0 0 1 3.481 8.413c-.002 6.557-5.34 11.893-11.896 11.893h-.005c-1.99-.001-3.947-.5-5.685-1.448L.054 24zm6.598-3.807.361.214a9.875 9.875 0 0 0 5.033 1.378h.004c5.45 0 9.886-4.434 9.888-9.884a9.824 9.824 0 0 0-2.894-6.994 9.823 9.823 0 0 0-6.99-2.898c-5.454 0-9.89 4.434-9.892 9.884a9.86 9.86 0 0 0 1.512 5.26l.235.374-.999 3.648 3.742-.982z"></path><path data-dc-tpl="29" fill-rule="evenodd" clip-rule="evenodd" d="M9.077 6.92c-.242-.579-.487-.5-.67-.51-.172-.008-.37-.01-.569-.01s-.52.074-.792.372c-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.873.117.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.174.199-.347.223-.644.075-.298-.15-1.256-.463-2.39-1.475-.885-.788-1.481-1.761-1.655-2.059-.173-.297-.018-.458.13-.606.135-.133.298-.347.447-.52.148-.174.198-.298.297-.497.099-.198.05-.372-.025-.52-.074-.149-.669-1.612-.916-2.207z"></path></g></svg></a>
+      </div>
+      <div data-dc-tpl="30" style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px;">
+        <a data-dc-tpl="31" href="tel:+971562221906" style="display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 500; color: rgb(190, 161, 106);">
+          <svg data-dc-tpl="32" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path data-dc-tpl="33" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+          CALL US: +971 56 222 1906
+        </a>
+        <a data-dc-tpl="34" href="/contact/" style="display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 500; color: rgb(190, 161, 106);">
+          <svg data-dc-tpl="35" id="nc_icon" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 24 24" width="18" height="18"><g data-dc-tpl="36" fill="#baa573" class="nc-icon-wrapper"><path data-dc-tpl="37" d="M17 16c-2.951 0-5.403-.639-7-1.712V16c0 1.657 3.134 3 7 3s7-1.343 7-3v-1.712C22.403 15.361 19.951 16 17 16zM17 21c-2.951 0-5.403-.639-7-1.712V21c0 1.657 3.134 3 7 3s7-1.343 7-3v-1.712C22.403 20.361 19.951 21 17 21z"></path><ellipse data-dc-tpl="38" cx="17" cy="11" rx="7" ry="3"></ellipse><ellipse data-dc-tpl="39" cx="7" cy="3" rx="7" ry="3"></ellipse><path data-dc-tpl="40" d="M8 17.973c-.327.016-.659.027-1 .027-2.951 0-5.403-.639-7-1.712V18c0 1.657 3.134 3 7 3 .34 0 .673-.014 1-.034v-2.993zM8 12.973c-.327.016-.659.027-1 .027-2.951 0-5.403-.639-7-1.712V13c0 1.657 3.134 3 7 3 .34 0 .673-.014 1-.034v-2.993zM9.92 7.766A17.81 17.81 0 0 1 7 8c-2.951 0-5.403-.639-7-1.712V8c0 1.657 3.134 3 7 3 .341 0 .674-.014 1.003-.034.012-1.263.707-2.36 1.917-3.2z"></path></g></svg>
+          GET A QUOTE
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div data-dc-tpl="41" style="background: rgb(255, 255, 255); position: relative;">
+    <div data-dc-tpl="42" style="max-width: 1600px; margin-inline: auto; padding-inline: 80px; display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px;">
+      <a data-dc-tpl="43" href="/" aria-label="Master Tents and Shades" style="display: flex; align-items: center; gap: 10px;">
+        <img data-dc-tpl="44" src="img/mastr-tents-and-shades-logo.jpg" alt="Master Tents and Shades" style="height: 70px; width: auto;">
+      </a>
+
+      
+      <nav data-dc-tpl="46">
+        <ul data-dc-tpl="47" style="display: flex; align-items: center; gap: 24px; list-style: none; margin: 0px; padding: 0px;">
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/about/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">About Us</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/tents/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Tents</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/pergola/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Pergola</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/parking-shades/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Parking Shades</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/shades/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Shades</span></a>
+              
+                </li>
+          
+            <li data-dc-tpl="49" style="position: relative;">
+              <a data-dc-tpl="50" href="/contact/" style="display: block; padding-block: 16px; font-size: 22px; font-weight: 500; letter-spacing: -0.4px; color: rgb(31, 67, 87); white-space: nowrap;"><span class="sc-interp">Contact</span></a>
+              </li>
+          
+        </ul>
+      </nav>
+      
+
+      
+    </div>
+
+    
+  </div>
+
+  <div data-dc-tpl="88" style="position: fixed; left: 0px; right: 0px; top: 0px; z-index: 50; background: rgb(190, 161, 106); transition: transform 0.3s; transform: translateY(-100%);">
+    <div data-dc-tpl="89" style="margin-inline: auto; display: flex; align-items: stretch; max-width: 100%;">
+      
+      <a data-dc-tpl="91" href="/" style="flex-shrink: 0; display: flex; align-items: center; background: rgb(190, 161, 106); padding: 12px 32px;">
+        <img data-dc-tpl="92" src="img/icon-1.png" alt="Master Tents and Shades" style="height: 80px; width: auto;">
+      </a>
+      
+      <div data-dc-tpl="93" style="display: grid; grid-template-columns: repeat(3, 1fr); flex: 1 1 0%; border-left: 1px solid rgba(255, 255, 255, 0.4);">
+        <div data-dc-tpl="94" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); border-right: 1px solid rgba(255, 255, 255, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="95" style="margin: 0px; font-size: 15px; font-weight: 600;">CALL US:</p>
+          <a data-dc-tpl="96" href="tel:+971562221906" style="font-size: 15px; font-weight: 600; color: rgb(255, 255, 255);">+971 56 222 1906</a>
+        </div>
+        <div data-dc-tpl="97" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); border-right: 1px solid rgba(255, 255, 255, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="98" style="margin: 0px; font-size: 15px; font-weight: 600;">Office time</p>
+          <p data-dc-tpl="99" style="margin: 0px; font-size: 15px; font-weight: 600;">09-00 : 18:00</p>
+        </div>
+        <div data-dc-tpl="100" style="padding: 12px 16px; text-align: center; color: rgb(255, 255, 255); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p data-dc-tpl="101" style="margin: 0px; font-size: 15px; font-weight: 600;">Mail Us:</p>
+          <a data-dc-tpl="102" href="mailto:info@mastertentsandshades.com" style="font-size: 15px; font-weight: 600; color: rgb(255, 255, 255);">info@mastertentsandshades.com</a>
+        </div>
+      </div>
+    </div>
+  </div></div></div><section data-dc-tpl="5" style="background: rgb(244, 235, 216); padding: 64px 0px;">
+  <div data-dc-tpl="6" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 44px; align-items: center;">
+    <div data-dc-tpl="7">
+      <span data-dc-tpl="8" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Tensile Structures and Sail Shades</span>
+      <h1 data-dc-tpl="9" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 29px; max-width: 20ch; margin: 0px 0px 16px; line-height: 1.25;">Tensile Shade Structures and Sail Shades in the UAE</h1>
+      <p data-dc-tpl="10" style="max-width: 54ch; margin: 0px 0px 22px; font-size: 15px;">From building-code-compliant shade over parking lots and school yards to emergency retensioning for a sagging villa pool sail, Master Tents and Shades designs, builds and maintains tensile shade structures engineered for the UAE's heat, UV index, and seasonal Shamal winds.</p>
+      <div data-dc-tpl="11" style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <span data-dc-tpl="12" style="display: flex; align-items: center; gap: 8px; background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 100px; padding: 9px 18px; font-size: 12.5px; font-weight: 700; color: rgb(18, 60, 99);">✓ DM, Trakhees and DCD Compliant</span>
+        <span data-dc-tpl="13" style="display: flex; align-items: center; gap: 8px; background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 100px; padding: 9px 18px; font-size: 12.5px; font-weight: 700; color: rgb(18, 60, 99);">✓ 10–15 Year Lifespan</span>
+        <span data-dc-tpl="14" style="display: flex; align-items: center; gap: 8px; background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 100px; padding: 9px 18px; font-size: 12.5px; font-weight: 700; color: rgb(18, 60, 99);">✓ Wind-Rated to 140 km/h</span>
+      </div>
+    </div>
+    <div data-dc-tpl="15" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 28px; box-shadow: rgba(10, 44, 74, 0.14) 0px 16px 40px; border: 1px solid rgb(231, 222, 198);">
+      <div data-dc-tpl="16" style="display: flex; align-items: center; gap: 12px; background: rgb(18, 60, 99); color: rgb(255, 255, 255); border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;">
+        <div data-dc-tpl="17" style="width: 38px; height: 38px; border-radius: 50%; background: rgb(245, 166, 35); flex-shrink: 0;"></div>
+        <div data-dc-tpl="18"><span data-dc-tpl="19" style="display: block; font-size: 10.5px; color: rgb(183, 202, 218); text-transform: uppercase; letter-spacing: 0.04em;">Call us now</span><a data-dc-tpl="20" href="tel:+971562221906" style="font-size: 16px; font-weight: 700; color: rgb(255, 255, 255);">+971 56 222 1906</a></div>
+      </div>
+      <h3 data-dc-tpl="21" style="font-family: Poppins, sans-serif; font-size: 16.5px; margin: 0px 0px 14px; color: rgb(18, 60, 99);">Request A Site Assessment</h3>
+      <input data-dc-tpl="22" placeholder="Name *" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(231, 222, 198); background: rgb(248, 243, 230); border-radius: 7px; padding: 11px 13px; font-size: 13.5px; margin-bottom: 10px; color: rgb(18, 60, 99);">
+      <input data-dc-tpl="23" placeholder="Phone *" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(231, 222, 198); background: rgb(248, 243, 230); border-radius: 7px; padding: 11px 13px; font-size: 13.5px; margin-bottom: 10px; color: rgb(18, 60, 99);">
+      <select data-dc-tpl="24" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(231, 222, 198); background: rgb(248, 243, 230); border-radius: 7px; padding: 11px 13px; font-size: 13.5px; margin-bottom: 10px; color: rgb(18, 60, 99);">
+        <option data-dc-tpl="25">New Installation</option><option data-dc-tpl="26">Repair / Retensioning</option><option data-dc-tpl="27">Not Sure Yet</option>
+      </select>
+      <textarea data-dc-tpl="28" placeholder="Tell us about your site or existing structure" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(231, 222, 198); background: rgb(248, 243, 230); border-radius: 7px; padding: 11px 13px; font-size: 13.5px; margin-bottom: 10px; color: rgb(18, 60, 99); min-height: 56px;"></textarea>
+      <button data-dc-tpl="29" type="button" style="width: 100%; background: rgb(245, 166, 35); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 7px; padding: 12px; font-weight: 700; font-size: 13.5px; cursor: pointer;">Submit Enquiry</button>
+    </div>
+  </div></section><section data-dc-tpl="30" style="background: rgb(255, 255, 255); padding: 64px 0px;">
+  <div data-dc-tpl="31" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="32" style="max-width: 720px; margin: 0px auto 36px; text-align: center;">
+      <span data-dc-tpl="33" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Who We Work With</span>
+      <h2 data-dc-tpl="34" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">Two Kinds of Enquiry, One Team</h2>
+    </div>
+    <div data-dc-tpl="35" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+      <div data-dc-tpl="36" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 28px; background: rgb(248, 243, 230);">
+        <span data-dc-tpl="37" style="display: inline-block; font-size: 11px; font-weight: 700; color: rgb(255, 255, 255); background: rgb(18, 60, 99); padding: 5px 12px; border-radius: 100px; margin-bottom: 12px;">New Infrastructure Sail Shades</span>
+        <h3 data-dc-tpl="38" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 19px; margin: 0px 0px 10px;">Shades for Facilities, Schools and Municipal Sites</h3>
+        <p data-dc-tpl="39" style="font-size: 14px; margin: 0px;">Asset managers, school principals, and municipal procurement officers typically need fixed, building-code-compliant shade over parking lots, school yards, restaurant terraces, or public parks – infrastructure that has to pass inspection, not just look good.</p>
+      </div>
+      <div data-dc-tpl="40" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 28px; background: rgb(248, 243, 230);">
+        <span data-dc-tpl="41" style="display: inline-block; font-size: 11px; font-weight: 700; color: rgb(255, 255, 255); background: rgb(18, 60, 99); padding: 5px 12px; border-radius: 100px; margin-bottom: 12px;">Immediate Fix Sail Shades</span>
+        <h3 data-dc-tpl="42" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 19px; margin: 0px 0px 10px;">Shades for Villa and Hospitality Owners</h3>
+        <p data-dc-tpl="43" style="font-size: 14px; margin: 0px;">Villa owners and hospitality operators usually come to us with a direct pain point – a garden, pool or patio that needs cooling down, or an existing sail sagging under summer heat that needs urgent inspection, retensioning, or fabric replacement.</p>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="44" style="background: rgb(244, 235, 216); padding: 64px 0px;">
+  <div data-dc-tpl="45" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="46" style="max-width: 720px; margin: 0px auto 36px; text-align: center;">
+      <span data-dc-tpl="47" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">What We Guarantee</span>
+      <h2 data-dc-tpl="48" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">Engineering You Don't Have to Take on Faith</h2>
+    </div>
+    <div data-dc-tpl="49" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+      <div data-dc-tpl="50" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 28px;">
+        <div data-dc-tpl="51" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><svg data-dc-tpl="52" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#F5A623" stroke-width="1.8"><path data-dc-tpl="53" d="M9 12l2 2 4-4"></path><circle data-dc-tpl="54" cx="12" cy="12" r="9"></circle></svg></div>
+        <h3 data-dc-tpl="55" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 17px; margin: 0px 0px 8px;">Regulatory Approvals Handled</h3>
+        <p data-dc-tpl="56" style="font-size: 14px; margin: 0px;">Dubai Municipality, Trakhees, and Dubai Civil Defense submissions are managed on the client's behalf, from first drawing to final sign-off.</p>
+      </div>
+      <div data-dc-tpl="57" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 28px;">
+        <div data-dc-tpl="58" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><svg data-dc-tpl="59" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#F5A623" stroke-width="1.8"><circle data-dc-tpl="60" cx="12" cy="12" r="9"></circle><path data-dc-tpl="61" d="M12 7v5l3 3"></path></svg></div>
+        <h3 data-dc-tpl="62" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 17px; margin: 0px 0px 8px;">The 10–15 Year Lifespan Promise</h3>
+        <p data-dc-tpl="63" style="font-size: 14px; margin: 0px;">Steel is chosen to resist oxidation and fabric is chosen to resist UV-driven discoloring and cracking – backed by a clear, stated lifespan.</p>
+      </div>
+      <div data-dc-tpl="64" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 28px;">
+        <div data-dc-tpl="65" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><svg data-dc-tpl="66" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#F5A623" stroke-width="1.8"><path data-dc-tpl="67" d="M3 12h4l2 5 4-14 2 9h6"></path></svg></div>
+        <h3 data-dc-tpl="68" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 17px; margin: 0px 0px 8px;">In-House 3D Wind Load Analysis</h3>
+        <p data-dc-tpl="69" style="font-size: 14px; margin: 0px;">Every frame is modelled before it's built, confirming it withstands seasonal Shamal sandstorms and winds up to 120–140 km/h.</p>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="70" style="background: rgb(248, 243, 230); padding: 64px 0px;">
+  <div data-dc-tpl="71" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="72" style="max-width: 720px; margin: 0px auto 36px; text-align: center;">
+      <span data-dc-tpl="73" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Fabric Composition</span>
+      <h2 data-dc-tpl="74" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">Choosing Between Airflow and Full Waterproofing Shades</h2>
+    </div>
+    <div data-dc-tpl="75" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+      <div data-dc-tpl="76" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 24px; background: rgb(255, 255, 255);">
+        <img data-dc-tpl="77" src="img/breathable-hdpe-sail-shades.webp" alt="Breathable HDPE sail shade canopy" style="width: 100%; height: 170px; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: block;">
+        <span data-dc-tpl="78" style="font-family: Poppins, sans-serif; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 8px; display: block; font-weight: 700;">Breathable</span>
+        <h4 data-dc-tpl="79" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16.5px; margin: 0px 0px 8px;">HDPE, 320–340 gsm</h4>
+        <p data-dc-tpl="80" style="font-size: 13px; margin: 0px;">A knitted mesh that blocks around 98% of UV rays while letting air move freely beneath the canopy.</p>
+      </div>
+      <div data-dc-tpl="81" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 24px; background: rgb(255, 255, 255);">
+        <img data-dc-tpl="82" src="img/pvc-coated-polyster.webp" alt="PVC-coated polyester shade structure" style="width: 100%; height: 170px; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: block;">
+        <span data-dc-tpl="83" style="font-family: Poppins, sans-serif; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 8px; display: block; font-weight: 700;">Waterproof</span>
+        <h4 data-dc-tpl="84" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16.5px; margin: 0px 0px 8px;">PVC-Coated Polyester, 650–850 gsm</h4>
+        <p data-dc-tpl="85" style="font-size: 13px; margin: 0px;">A fully sealed, 100% waterproof membrane built for permanent commercial installations that need complete rain cover.</p>
+      </div>
+      <div data-dc-tpl="86" style="border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 24px; background: rgb(255, 255, 255);">
+        <img data-dc-tpl="87" src="img/ptfe-teflon-coated-shades.webp" alt="PTFE Teflon-coated premium shade canopy" style="width: 100%; height: 170px; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: block;">
+        <span data-dc-tpl="88" style="font-family: Poppins, sans-serif; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 8px; display: block; font-weight: 700;">Premium</span>
+        <h4 data-dc-tpl="89" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16.5px; margin: 0px 0px 8px;">PTFE (Teflon-Coated)</h4>
+        <p data-dc-tpl="90" style="font-size: 13px; margin: 0px;">A self-cleaning, long-life fabric reserved for landmark permanent structures where finish and longevity outweigh upfront cost.</p>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="91" style="background: rgb(18, 60, 99); color: rgb(234, 230, 218); padding: 64px 0px;">
+  <div data-dc-tpl="92" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="93" style="max-width: 720px; margin: 0px auto 36px; text-align: center;">
+      <span data-dc-tpl="94" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(245, 166, 35); margin-bottom: 10px;">Structural Integrity</span>
+      <h2 data-dc-tpl="95" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(255, 255, 255); font-size: 26px; margin: 0px;">Hardening and Certification</h2>
+    </div>
+    <div data-dc-tpl="96" style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px;">
+      <div data-dc-tpl="97" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; padding: 24px;">
+        <h3 data-dc-tpl="98" style="color: rgb(255, 255, 255); font-size: 16.5px; margin: 0px 0px 10px;">Structural and Marine Hardening</h3>
+        <p data-dc-tpl="99" style="font-size: 13.5px; color: rgb(183, 187, 204); margin: 0px;">Frames use hot-dip galvanized steel finished with anti-corrosive powder coating. Tension cables and turnbuckles are Grade 316 marine-grade stainless steel, specifically chosen to stop rust developing at high-friction connection points.</p>
+      </div>
+      <div data-dc-tpl="100" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; padding: 24px;">
+        <h3 data-dc-tpl="101" style="color: rgb(255, 255, 255); font-size: 16.5px; margin: 0px 0px 10px;">Safety Certifications</h3>
+        <p data-dc-tpl="102" style="font-size: 13.5px; color: rgb(183, 187, 204); margin: 0px 0px 12px;">Fabric and frame components carry documented flame-retardancy certification against recognised international benchmarks – a paper trail available on request, not just a verbal assurance.</p>
+        <div data-dc-tpl="103" style="display: flex; gap: 8px; flex-wrap: wrap;"><span data-dc-tpl="104" style="font-size: 11px; font-weight: 700; color: rgb(18, 60, 99); background: rgb(245, 166, 35); padding: 5px 10px; border-radius: 6px;">BS 7837</span><span data-dc-tpl="105" style="font-size: 11px; font-weight: 700; color: rgb(18, 60, 99); background: rgb(245, 166, 35); padding: 5px 10px; border-radius: 6px;">DIN 4102 B1</span><span data-dc-tpl="106" style="font-size: 11px; font-weight: 700; color: rgb(18, 60, 99); background: rgb(245, 166, 35); padding: 5px 10px; border-radius: 6px;">NFPA 701</span></div>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="107" style="background: rgb(255, 255, 255); padding: 64px 0px;">
+  <div data-dc-tpl="108" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="109" style="max-width: 720px; margin: 0px auto 36px; text-align: center;">
+      <span data-dc-tpl="110" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Product Range</span>
+      <h2 data-dc-tpl="111" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">Sail Shade Designs We Build</h2>
+    </div>
+    <div data-dc-tpl="112" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div data-dc-tpl="113" style="background: rgb(248, 243, 230); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 26px; display: flex; gap: 18px;">
+        <div data-dc-tpl="114" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(245, 166, 35); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg data-dc-tpl="115" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8"><path data-dc-tpl="116" d="M4 20L18 6M18 6v8M18 6h-8"></path></svg></div>
+        <div data-dc-tpl="117"><h3 data-dc-tpl="118" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16.5px; margin: 0px 0px 8px;">Hyperbolic Paraboloid (Hypar) Sail Shades</h3>
+        <p data-dc-tpl="119" style="font-size: 13.5px; margin: 0px;">A twisted-surface sail with two high and two low attachment points, which naturally optimises tension and helps deflect high winds.</p></div>
+      </div>
+      <div data-dc-tpl="120" style="background: rgb(248, 243, 230); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 26px; display: flex; gap: 18px;">
+        <div data-dc-tpl="121" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(245, 166, 35); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg data-dc-tpl="122" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8"><path data-dc-tpl="123" d="M12 4l9 16H3z"></path></svg></div>
+        <div data-dc-tpl="124"><h3 data-dc-tpl="125" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16.5px; margin: 0px 0px 8px;">Triangular and Multi-Tiered Sail Shades</h3>
+        <p data-dc-tpl="126" style="font-size: 13.5px; margin: 0px;">Overlapping fabric layers anchored at staggered heights, creating a dynamic, layered look over pools and lounge decks.</p></div>
+      </div>
+      <div data-dc-tpl="127" style="background: rgb(248, 243, 230); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 26px; display: flex; gap: 18px;">
+        <div data-dc-tpl="128" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(245, 166, 35); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg data-dc-tpl="129" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8"><path data-dc-tpl="130" d="M4 6l14 6-14 6z"></path></svg></div>
+        <div data-dc-tpl="131"><h3 data-dc-tpl="132" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16.5px; margin: 0px 0px 8px;">Cantilevered Hanging Sail Shades</h3>
+        <p data-dc-tpl="133" style="font-size: 13.5px; margin: 0px;">Heavy-duty, single-post structures for commercial parking lines and walkways that need to keep ground space clear.</p></div>
+      </div>
+      <div data-dc-tpl="134" style="background: rgb(248, 243, 230); border: 1px solid rgb(231, 222, 198); border-radius: 12px; padding: 26px; display: flex; gap: 18px;">
+        <div data-dc-tpl="135" style="width: 44px; height: 44px; border-radius: 10px; background: rgb(245, 166, 35); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg data-dc-tpl="136" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8"><path data-dc-tpl="137" d="M4 16c4-8 12-8 16 0"></path></svg></div>
+        <div data-dc-tpl="138"><h3 data-dc-tpl="139" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 16.5px; margin: 0px 0px 8px;">Pre-Tensioned Cable-Edge Shade Sails</h3>
+        <p data-dc-tpl="140" style="font-size: 13.5px; margin: 0px;">Large-span membranes with hidden internal perimeter cables that stop fabric sagging over school playgrounds or resort lawns.</p></div>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="141" style="background: rgb(248, 243, 230); padding: 64px 0px;">
+  <div data-dc-tpl="142" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="143" style="max-width: 720px; margin: 0px auto 36px; text-align: center;">
+      <span data-dc-tpl="144" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Off-The-Shelf Options</span>
+      <h2 data-dc-tpl="145" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px 0px 10px;">Pre-Made Sail Shade Specifications</h2>
+      <p data-dc-tpl="146" style="font-size: 14.5px; margin: 0px;">For smaller gardens and patios that don't need a full custom install, these are the common pre-made formats we can supply or match – alongside fully custom, fixed sails made to order.</p>
+    </div>
+    <h3 data-dc-tpl="147" style="font-size: 16px; margin: 0px 0px 16px; color: rgb(18, 60, 99); font-family: Poppins, sans-serif; display: flex; align-items: center; gap: 10px;">Pre-Made and Retail-Style Sail Shades<span data-dc-tpl="148" style="flex: 1 1 0%; height: 1px; background: rgb(231, 222, 198);"></span></h3>
+    <div data-dc-tpl="149" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px;">
+      <div data-dc-tpl="150" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="151" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">12'×16' Cream Rectangle, Curved Edge, Commercial Grade</span>
+        <ul data-dc-tpl="152" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="153" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="154" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Shape</b><em data-dc-tpl="155" style="font-style: normal; text-align: right;">Rectangle</em></li>
+          <li data-dc-tpl="156" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="157" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Size</b><em data-dc-tpl="158" style="font-style: normal; text-align: right;">12' × 16'</em></li>
+          <li data-dc-tpl="159" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="160" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Edge Style</b><em data-dc-tpl="161" style="font-style: normal; text-align: right;">Curved</em></li>
+          <li data-dc-tpl="162" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="163" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Fabric Weight</b><em data-dc-tpl="164" style="font-style: normal; text-align: right;">185 GSM</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="165" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="166" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">Garden Sail Canopy with Fixing Kit</span>
+        <ul data-dc-tpl="167" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="168" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="169" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Type</b><em data-dc-tpl="170" style="font-style: normal; text-align: right;">Garden Canopy Sail</em></li>
+          <li data-dc-tpl="171" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="172" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Includes</b><em data-dc-tpl="173" style="font-style: normal; text-align: right;">Fixing Kit</em></li>
+          <li data-dc-tpl="174" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="175" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Water Resistance</b><em data-dc-tpl="176" style="font-style: normal; text-align: right;">Water-Resistant</em></li>
+          <li data-dc-tpl="177" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="178" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Best For</b><em data-dc-tpl="179" style="font-style: normal; text-align: right;">Outdoor Garden Shade</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="180" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="181" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">Triangular Awning with Mounting Ropes</span>
+        <ul data-dc-tpl="182" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="183" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="184" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Shape</b><em data-dc-tpl="185" style="font-style: normal; text-align: right;">Triangular</em></li>
+          <li data-dc-tpl="186" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="187" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Includes</b><em data-dc-tpl="188" style="font-style: normal; text-align: right;">Mounting Ropes</em></li>
+          <li data-dc-tpl="189" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="190" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">UV Protection</b><em data-dc-tpl="191" style="font-style: normal; text-align: right;">Yes</em></li>
+          <li data-dc-tpl="192" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="193" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Wind Protection</b><em data-dc-tpl="194" style="font-style: normal; text-align: right;">Yes</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="195" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="196" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">Retractable Wave Awning Canopy, 98% UV</span>
+        <ul data-dc-tpl="197" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="198" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="199" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Type</b><em data-dc-tpl="200" style="font-style: normal; text-align: right;">Retractable Wave</em></li>
+          <li data-dc-tpl="201" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="202" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Water Resistance</b><em data-dc-tpl="203" style="font-style: normal; text-align: right;">Water-Resistant</em></li>
+          <li data-dc-tpl="204" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="205" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">UV Block</b><em data-dc-tpl="206" style="font-style: normal; text-align: right;">98%</em></li>
+          <li data-dc-tpl="207" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="208" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Mechanism</b><em data-dc-tpl="209" style="font-style: normal; text-align: right;">Manual Retract</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="210" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="211" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">12'×16' Beige Rectangle Canopy, Permeable Screen</span>
+        <ul data-dc-tpl="212" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="213" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="214" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Size</b><em data-dc-tpl="215" style="font-style: normal; text-align: right;">12' × 16'</em></li>
+          <li data-dc-tpl="216" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="217" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Color</b><em data-dc-tpl="218" style="font-style: normal; text-align: right;">Beige</em></li>
+          <li data-dc-tpl="219" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="220" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Shape</b><em data-dc-tpl="221" style="font-style: normal; text-align: right;">Rectangle</em></li>
+          <li data-dc-tpl="222" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="223" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Fabric</b><em data-dc-tpl="224" style="font-style: normal; text-align: right;">Permeable Cloth Screen</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="225" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="226" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">Retractable Wave Sail, 140×850 cm, PES</span>
+        <ul data-dc-tpl="227" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="228" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="229" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Type</b><em data-dc-tpl="230" style="font-style: normal; text-align: right;">Retractable Wave</em></li>
+          <li data-dc-tpl="231" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="232" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Size</b><em data-dc-tpl="233" style="font-style: normal; text-align: right;">140 × 850 cm</em></li>
+          <li data-dc-tpl="234" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="235" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Fabric</b><em data-dc-tpl="236" style="font-style: normal; text-align: right;">PES (Polyester)</em></li>
+          <li data-dc-tpl="237" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="238" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Fabric Weight</b><em data-dc-tpl="239" style="font-style: normal; text-align: right;">180 g/m²</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="240" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="241" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">+Plus Furl Breathable Square/Rectangular Sail</span>
+        <ul data-dc-tpl="242" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="243" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="244" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Style</b><em data-dc-tpl="245" style="font-style: normal; text-align: right;">Furl / Retracting</em></li>
+          <li data-dc-tpl="246" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="247" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Shape</b><em data-dc-tpl="248" style="font-style: normal; text-align: right;">Square or Rectangular</em></li>
+          <li data-dc-tpl="249" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="250" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Breathability</b><em data-dc-tpl="251" style="font-style: normal; text-align: right;">Breathable Weave</em></li>
+          <li data-dc-tpl="252" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="253" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Mechanism</b><em data-dc-tpl="254" style="font-style: normal; text-align: right;">Furling</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="255" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="256" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">12'×16' Rectangle Canopy, 95% UV Block, Permeable</span>
+        <ul data-dc-tpl="257" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="258" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="259" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Size</b><em data-dc-tpl="260" style="font-style: normal; text-align: right;">12' × 16'</em></li>
+          <li data-dc-tpl="261" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="262" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Shape</b><em data-dc-tpl="263" style="font-style: normal; text-align: right;">Rectangle</em></li>
+          <li data-dc-tpl="264" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="265" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">UV Block</b><em data-dc-tpl="266" style="font-style: normal; text-align: right;">95%</em></li>
+          <li data-dc-tpl="267" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="268" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Fabric Weight</b><em data-dc-tpl="269" style="font-style: normal; text-align: right;">185 GSM</em></li>
+        </ul>
+      </div>
+      <div data-dc-tpl="270" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 18px 18px 16px;">
+        <span data-dc-tpl="271" style="font-size: 13.5px; font-weight: 700; color: rgb(18, 60, 99); line-height: 1.3; display: block; margin-bottom: 12px;">Fixed Shade Sails – Custom Made to Order, Dubai</span>
+        <ul data-dc-tpl="272" style="margin: 0px; padding: 10px 0px 0px; list-style: none; border-top: 1px dashed rgb(231, 222, 198);">
+          <li data-dc-tpl="273" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="274" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Type</b><em data-dc-tpl="275" style="font-style: normal; text-align: right;">Fixed, Permanent Mount</em></li>
+          <li data-dc-tpl="276" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="277" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Order Type</b><em data-dc-tpl="278" style="font-style: normal; text-align: right;">Custom Made-to-Order</em></li>
+          <li data-dc-tpl="279" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="280" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Manufactured</b><em data-dc-tpl="281" style="font-style: normal; text-align: right;">Dubai, UAE</em></li>
+          <li data-dc-tpl="282" style="display: flex; justify-content: space-between; gap: 10px; font-size: 11px; color: rgb(91, 100, 114); margin-bottom: 5px;"><b data-dc-tpl="283" style="color: rgb(18, 60, 99); font-weight: 600; white-space: nowrap;">Best For</b><em data-dc-tpl="284" style="font-style: normal; text-align: right;">Long-Term Installations</em></li>
+        </ul>
+      </div>
+    </div>
+    <h3 data-dc-tpl="285" style="font-size: 16px; margin: 0px 0px 16px; color: rgb(18, 60, 99); font-family: Poppins, sans-serif; display: flex; align-items: center; gap: 10px;">Layout and Installation Guidance<span data-dc-tpl="286" style="flex: 1 1 0%; height: 1px; background: rgb(231, 222, 198);"></span></h3>
+    <div data-dc-tpl="287" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+      <div data-dc-tpl="288" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 20px;">
+        <div data-dc-tpl="289" style="width: 32px; height: 32px; border-radius: 8px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;"><svg data-dc-tpl="290" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5A623" stroke-width="1.8"><path data-dc-tpl="291" d="M12 3l9 18H3z"></path></svg></div>
+        <h4 data-dc-tpl="292" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px 0px 8px;">Triangle Shade Sail Layout</h4>
+        <p data-dc-tpl="293" style="font-size: 12.5px; margin: 0px;">A single or paired triangular sail anchored at three points – the simplest layout for tight corners, small patios, or a single seating area.</p>
+      </div>
+      <div data-dc-tpl="294" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 20px;">
+        <div data-dc-tpl="295" style="width: 32px; height: 32px; border-radius: 8px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;"><svg data-dc-tpl="296" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5A623" stroke-width="1.8"><path data-dc-tpl="297" d="M2 19l5-9 4 6 3-5 5 8z"></path></svg></div>
+        <h4 data-dc-tpl="298" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px 0px 8px;">Multi-Sail Design Layouts</h4>
+        <p data-dc-tpl="299" style="font-size: 12.5px; margin: 0px;">Combining several sails at varying heights and angles to cover larger areas while adding visual depth rather than one flat panel.</p>
+      </div>
+      <div data-dc-tpl="300" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 20px;">
+        <div data-dc-tpl="301" style="width: 32px; height: 32px; border-radius: 8px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;"><svg data-dc-tpl="302" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5A623" stroke-width="1.8"><path data-dc-tpl="303" d="M3 19l6-13 5 9 3-6 4 10"></path></svg></div>
+        <h4 data-dc-tpl="304" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px 0px 8px;">Overlapping Shade Sails</h4>
+        <p data-dc-tpl="305" style="font-size: 12.5px; margin: 0px;">Staggering sails so their edges layer over one another, removing gaps in coverage and increasing shade between panels through the day.</p>
+      </div>
+      <div data-dc-tpl="306" style="background: rgb(255, 255, 255); border: 1px solid rgb(231, 222, 198); border-radius: 10px; padding: 20px;">
+        <div data-dc-tpl="307" style="width: 32px; height: 32px; border-radius: 8px; background: rgb(18, 60, 99); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;"><svg data-dc-tpl="308" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5A623" stroke-width="1.8"><path data-dc-tpl="309" d="M4 21V9l8-6 8 6v12"></path><path data-dc-tpl="310" d="M9 21v-6h6v6"></path></svg></div>
+        <h4 data-dc-tpl="311" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 14.5px; margin: 0px 0px 8px;">Attaching a Sail to a House Wall</h4>
+        <p data-dc-tpl="312" style="font-size: 12.5px; margin: 0px;">Uses a wall-mounted eye plate rated for the sail's tension load, paired with a turnbuckle so tension can be adjusted after install.</p>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="313" style="background: rgb(245, 166, 35); color: rgb(255, 255, 255); padding: 56px 0px;">
+  <div data-dc-tpl="314" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px; display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center;">
+    <div data-dc-tpl="315" style="background: rgb(255, 255, 255); color: rgb(18, 60, 99); border-radius: 16px; width: 160px; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0px auto; box-shadow: rgba(0, 0, 0, 0.15) 0px 12px 26px;">
+      <b data-dc-tpl="316" style="font-family: Poppins, sans-serif; font-size: 28px; line-height: 1;">10–15°C</b><span data-dc-tpl="317" style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; margin-top: 4px; text-align: center;">Ambient Temperature Drop</span>
+    </div>
+    <div data-dc-tpl="318">
+      <h2 data-dc-tpl="319" style="color: rgb(255, 255, 255); font-size: 24px; margin: 0px 0px 10px;">Thermal Comfort, Not Just Sun Cover</h2>
+      <p data-dc-tpl="320" style="font-size: 14.5px; max-width: 60ch; color: rgb(252, 235, 208); margin: 0px;">Breathable HDPE open-mesh fabric avoids the greenhouse effect that solid plastic or sealed covers create. A correctly specified open-mesh shade can drop the ambient temperature underneath it by roughly 10°C to 15°C.</p>
+    </div>
+  </div></section><section data-dc-tpl="321" style="border-top: 1px solid rgb(231, 222, 198); background: rgb(255, 255, 255); padding: 64px 0px;">
+  <div data-dc-tpl="322" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: center;">
+    <div data-dc-tpl="323" style="aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden;"><img data-dc-tpl="324" src="img/zero-liability-turnkey-regulatory-guarante.webp" alt="Turnkey regulatory guarantee" style="width: 100%; height: 100%; object-fit: cover;"></div>
+    <div data-dc-tpl="325">
+      <span data-dc-tpl="326" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 8px;">For Developers and Facility Managers</span>
+      <h2 data-dc-tpl="327" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 23px; max-width: 22ch; margin: 0px 0px 14px;">A Zero-Liability, Turnkey Regulatory Guarantee</h2>
+      <p data-dc-tpl="328" style="font-size: 14.5px; margin: 0px 0px 12px; max-width: 56ch;">For commercial developers, facility managers, and school administrators, the offer is simple: Master Tents and Shades manages engineering load analysis, foundation soil testing, and municipality permit processing end to end.</p>
+      <p data-dc-tpl="329" style="font-size: 14.5px; margin: 0px; max-width: 56ch;">No legal risk or compliance stress passes to the client – the structure arrives approved, not pending approval.</p>
+    </div>
+  </div></section><section data-dc-tpl="330" style="background: rgb(248, 243, 230); padding: 64px 0px;">
+  <div data-dc-tpl="331" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center;">
+    <div data-dc-tpl="332">
+      <span data-dc-tpl="333" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 8px;">For Villas and Boutique Hotels</span>
+      <h2 data-dc-tpl="334" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 23px; max-width: 22ch; margin: 0px 0px 14px;">Architectural Value, Not Just Fabric</h2>
+      <p data-dc-tpl="335" style="font-size: 14.5px; margin: 0px 0px 12px; max-width: 56ch;">A well-designed shade system should read as a permanent investment in the property, not a temporary fabric patch. A custom Hypar design or a premium material selection can turn an outdoor space into an architectural feature.</p>
+      <p data-dc-tpl="336" style="font-size: 14.5px; margin: 0px; max-width: 56ch;">For luxury villa owners, boutique hotels, and residential developers, that feature plays a real role in the property's total appraised value.</p>
+    </div>
+    <div data-dc-tpl="337" style="aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden;"><img data-dc-tpl="338" src="img/architectural-valve-not-just-fabric.webp" alt="Architectural value" style="width: 100%; height: 100%; object-fit: cover;"></div>
+  </div></section><section data-dc-tpl="339" style="background: rgb(244, 235, 216); padding: 64px 0px;">
+  <div data-dc-tpl="340" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <div data-dc-tpl="341" style="max-width: 720px; margin: 0px auto 36px; text-align: center;">
+      <span data-dc-tpl="342" style="display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(221, 142, 14); margin-bottom: 10px;">Where This Fits</span>
+      <h2 data-dc-tpl="343" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(18, 60, 99); font-size: 26px; margin: 0px;">By Project Type</h2>
+    </div>
+    <div data-dc-tpl="344" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+      <div data-dc-tpl="345" style="background: rgb(255, 255, 255); border-radius: 12px; padding: 28px;">
+        <span data-dc-tpl="346" style="display: inline-block; font-size: 11.5px; font-weight: 700; color: rgb(255, 255, 255); background: rgb(18, 60, 99); padding: 6px 16px; border-radius: 100px; margin-bottom: 16px;">Commercial and Educational</span>
+        <h3 data-dc-tpl="347" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 18px; margin: 0px 0px 14px;">Institutional Sites</h3>
+        <div data-dc-tpl="348" style="display: flex; flex-direction: column; gap: 10px;">
+          <div data-dc-tpl="349" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Commercial tensile shade structure manufacturing</div>
+          <div data-dc-tpl="350" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">UV-blocking school playground shade sails</div>
+          <div data-dc-tpl="351" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Heavy-duty PVC car parking shade structures</div>
+        </div>
+      </div>
+      <div data-dc-tpl="352" style="background: rgb(255, 255, 255); border-radius: 12px; padding: 28px;">
+        <span data-dc-tpl="353" style="display: inline-block; font-size: 11.5px; font-weight: 700; color: rgb(255, 255, 255); background: rgb(18, 60, 99); padding: 6px 16px; border-radius: 100px; margin-bottom: 16px;">Residential and Custom</span>
+        <h3 data-dc-tpl="354" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 18px; margin: 0px 0px 14px;">Villas and Boutique Hospitality</h3>
+        <div data-dc-tpl="355" style="display: flex; flex-direction: column; gap: 10px;">
+          <div data-dc-tpl="356" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Luxury villa swimming pool sail shade installation</div>
+          <div data-dc-tpl="357" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Custom architectural fabric shade structure design</div>
+          <div data-dc-tpl="358" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Waterproof fabric shade structures for restaurant terraces</div>
+        </div>
+      </div>
+      <div data-dc-tpl="359" style="background: rgb(255, 255, 255); border-radius: 12px; padding: 28px;">
+        <span data-dc-tpl="360" style="display: inline-block; font-size: 11.5px; font-weight: 700; color: rgb(255, 255, 255); background: rgb(18, 60, 99); padding: 6px 16px; border-radius: 100px; margin-bottom: 16px;">Maintenance and Remediation</span>
+        <h3 data-dc-tpl="361" style="font-family: Poppins, sans-serif; color: rgb(18, 60, 99); font-size: 18px; margin: 0px 0px 14px;">Repair and Upkeep</h3>
+        <div data-dc-tpl="362" style="display: flex; flex-direction: column; gap: 10px;">
+          <div data-dc-tpl="363" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Emergency tensile shade fabric repair and replacement</div>
+          <div data-dc-tpl="364" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Retensioning and cleaning for tensioned shade structures</div>
+          <div data-dc-tpl="365" style="background: rgb(248, 243, 230); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: rgb(18, 60, 99);">Shade sail steel frame maintenance</div>
+        </div>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="366" style="background: rgb(245, 166, 35); color: rgb(255, 255, 255); text-align: center; padding: 64px 0px;">
+  <div data-dc-tpl="367" style="max-width: 1600px; margin-inline: auto; padding: 0px 40px;">
+    <h2 data-dc-tpl="368" style="font-family: Poppins, sans-serif; font-weight: 700; color: rgb(255, 255, 255); font-size: 27px; margin: 0px 0px 12px;">Talk To Our Shade Structures Team</h2>
+    <p data-dc-tpl="369" style="color: rgb(252, 235, 208); margin: 0px 0px 22px; font-size: 14.5px;">New installation or an existing structure that needs attention – either way, we'll take it from here.</p>
+    <a data-dc-tpl="370" href="tel:+971562221906" style="display: inline-flex; align-items: center; gap: 8px; background: rgb(18, 60, 99); color: rgb(255, 255, 255); font-weight: 700; font-size: 13.5px; padding: 13px 26px; border-radius: 7px;">Call +971 56 222 1906</a>
+  </div></section><footer data-dc-tpl="371" style="background: rgb(10, 44, 74); color: rgb(183, 202, 218);">
+  <div data-dc-tpl="372" style="max-width: 1100px; margin-inline: auto; padding: 56px 24px 36px; display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 32px;">
+    <div data-dc-tpl="373">
+      <h4 data-dc-tpl="374" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">About Company</h4>
+      <p data-dc-tpl="375" style="font-size: 13px; line-height: 1.7; color: rgb(159, 176, 196); margin: 0px;">Master Tents and Shades is the UAE's leading manufacturer of steel structure tents, aluminium pergolas, car parking shades, and tensile sail structures — engineered for durability across Dubai, Sharjah, and Abu Dhabi.</p>
+    </div>
+    <div data-dc-tpl="376">
+      <h4 data-dc-tpl="377" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">Connect with Us</h4>
+      <ul data-dc-tpl="378" style="display: flex; flex-direction: column; gap: 12px; margin: 0px; padding: 0px; list-style: none;">
+        <li data-dc-tpl="379" style="font-size: 13px;"><a data-dc-tpl="380" href="mailto:info@mastertentsandshades.com" style="color: rgb(183, 202, 218);">info@mastertentsandshades.com</a></li>
+        <li data-dc-tpl="381" style="font-size: 13px;"><a data-dc-tpl="382" href="tel:+97142203352" style="color: rgb(183, 202, 218);">+971 4 220 3352</a></li>
+        <li data-dc-tpl="383" style="font-size: 13px;"><a data-dc-tpl="384" href="tel:+971562221906" style="color: rgb(183, 202, 218);">+971 56 222 1906</a></li>
+      </ul>
+    </div>
+    <div data-dc-tpl="385">
+      <h4 data-dc-tpl="386" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">Quick Links</h4>
+      <ul data-dc-tpl="387" style="display: flex; flex-direction: column; gap: 10px; margin: 0px; padding: 0px; list-style: none;">
+        <li data-dc-tpl="388"><a data-dc-tpl="389" href="/about/" style="color: rgb(183, 202, 218); font-size: 13px;">About Us</a></li>
+        <li data-dc-tpl="390"><a data-dc-tpl="391" href="/tents/" style="color: rgb(183, 202, 218); font-size: 13px;">Tents</a></li>
+        <li data-dc-tpl="392"><a data-dc-tpl="393" href="/pergola/" style="color: rgb(183, 202, 218); font-size: 13px;">Pergola</a></li>
+        <li data-dc-tpl="394"><a data-dc-tpl="395" href="/parking-shades/" style="color: rgb(183, 202, 218); font-size: 13px;">Parking Shades</a></li>
+        <li data-dc-tpl="396"><a data-dc-tpl="397" href="/contact/" style="color: rgb(183, 202, 218); font-size: 13px;">Contact</a></li>
+      </ul>
+    </div>
+    <div data-dc-tpl="398">
+      <h4 data-dc-tpl="399" style="color: rgb(255, 255, 255); font-size: 15px; margin: 0px 0px 16px;">Our Address</h4>
+      <p data-dc-tpl="400" style="font-size: 13px; line-height: 1.7; color: rgb(159, 176, 196); margin: 0px;"># 601, Abraj Almamzar,<br data-dc-tpl="401">P.O.Box: 99160, Dubai,<br data-dc-tpl="402">United Arab Emirates</p>
+    </div>
+  </div>
+  <div data-dc-tpl="403" style="max-width: 1100px; margin-inline: auto; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 12px; color: rgb(140, 160, 184);">
+    <span data-dc-tpl="404">© 2026 All Rights Reserved. Master Tents and Shades LLC in Dubai, Sharjah, Abu Dhabi All over UAE.</span>
+  </div></footer><div data-dc-tpl="405" style="display: flex; background: rgb(255, 255, 255); border-top: 2px solid rgb(18, 60, 99);">
+  <a data-dc-tpl="406" href="tel:+971562221906" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99); border-right: 1px solid rgb(231, 222, 198);">
+    <svg data-dc-tpl="407" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#DD8E0E" stroke-width="2"><path data-dc-tpl="408" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1z"></path></svg>
+    Call
+  </a>
+  <a data-dc-tpl="409" href="mailto:info@mastertentsandshades.com" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99); border-right: 1px solid rgb(231, 222, 198);">
+    <svg data-dc-tpl="410" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#DD8E0E" stroke-width="2"><path data-dc-tpl="411" d="M4 4h16v16H4z"></path><path data-dc-tpl="412" d="M4 6l8 7 8-7"></path></svg>
+    Email
+  </a>
+  <a data-dc-tpl="413" href="https://wa.me/971562221906" target="_blank" rel="noopener noreferrer" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99); border-right: 1px solid rgb(231, 222, 198);">
+    <svg data-dc-tpl="414" viewBox="0 0 24 24" width="16" height="16" fill="#DD8E0E"><path data-dc-tpl="415" d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.2-3.7-.8-3.1-1.2-5-4.3-5.2-4.5-.2-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l1.9 1c.2.1.4.2.5.3.1.2.1 1-.1 1.7z"></path></svg>
+    WhatsApp
+  </a>
+  <a data-dc-tpl="416" href="https://maps.google.com/?q=Abraj+Al+Mamzar+Dubai+UAE" target="_blank" rel="noopener noreferrer" style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; font-size: 14px; font-weight: 700; color: rgb(18, 60, 99);">
+    <svg data-dc-tpl="417" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#DD8E0E" stroke-width="2"><path data-dc-tpl="418" d="M12 22s7-7.4 7-12a7 7 0 10-14 0c0 4.6 7 12 7 12z"></path><circle data-dc-tpl="419" cx="12" cy="10" r="2.5"></circle></svg>
+    Location
+  </a></div></div></div>
+
+
+</body></html>

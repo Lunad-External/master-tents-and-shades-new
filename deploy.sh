@@ -112,6 +112,7 @@ sudo mkdir -p "$SITE_ROOT" /etc/nginx/snippets
 sudo rsync -a --delete \
     --exclude='.git/' \
     --exclude='dev_server.py' \
+    --exclude='prerender/node_modules/' \
     "$REPO_DIR/" "$SITE_ROOT/"
 
 log "Generating clean URL routes"
