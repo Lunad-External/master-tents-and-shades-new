@@ -79,10 +79,19 @@ with the real content above it, crawlers will see stale/wrong text.
 
 ## One-time Git hook setup
 
-Run this once from PowerShell in the repository:
+Each developer or local clone must run this once. In VS Code, open
+**Terminal → New Terminal**, select **PowerShell**, and run it from the
+repository root:
 
 ```
+cd "D:\Projects\LunadexternalClients\master-tents-and-shades-new"
 .\setup-git-hooks.ps1
+```
+
+If PowerShell blocks the script, run:
+
+```
+powershell -ExecutionPolicy Bypass -File .\setup-git-hooks.ps1
 ```
 
 This configures the repository to use the versioned `.githooks/pre-commit`
