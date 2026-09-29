@@ -1,0 +1,97 @@
+#!/bin/sh
+set -eu
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cd "$REPO_ROOT"
+
+staged_paths=$(git diff --cached --name-only --diff-filter=ACMRTUXB)
+
+should_render=false
+full_render=false
+routes=""
+page_paths=""
+
+while IFS= read -r path; do
+    [ -n "$path" ] || continue
+    case "$path" in
+        index.html)
+            should_render=true
+            full_render=true
+            ;;
+        *.dc.html)
+            should_render=true
+            case "$path" in
+                Header.dc.html|Footer.dc.html|BlogPost.dc.html|InfoPage.dc.html|ProductPage.dc.html)
+                    full_render=true
+                    ;;
+                *)
+                    slug=$(printf '%s' "${path%.dc.html}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')
+                    routes="$routes$slug
+"
+                    page_paths="$page_paths$path
+"
+                    ;;
+            esac
+            ;;
+        support.js)
+            should_render=true
+            full_render=true
+            ;;
+    esac
+done <<EOF
+$staged_paths
+EOF
+
+if [ "$should_render" = false ]; then
+    exit 0
+fi
+
+unstaged_paths=$(git diff --name-only --diff-filter=ACMRTUXB)
+while IFS= read -r path; do
+    [ -n "$path" ] || continue
+    case "$path" in
+        index.html|support.js|*.dc.html)
+            printf '\n[pre-commit] Relevant file has unstaged changes: %s\n' "$path" >&2
+            printf '[pre-commit] Stage or stash these changes before committing.\n' >&2
+            exit 1
+            ;;
+    esac
+done <<EOF
+$unstaged_paths
+EOF
+
+if command -v python3 >/dev/null 2>&1; then
+    PYTHON=python3
+elif command -v python >/dev/null 2>&1; then
+    PYTHON=python
+else
+    printf '[pre-commit] Python is required to regenerate snapshots.\n' >&2
+    exit 1
+fi
+
+printf '[pre-commit] Regenerating crawler snapshots...\n'
+if [ "$full_render" = true ]; then
+    "$PYTHON" prerender.py
+else
+    while IFS= read -r slug; do
+        [ -n "$slug" ] || continue
+        "$PYTHON" prerender.py --only "$slug"
+    done <<EOF
+$routes
+EOF
+fi
+
+# The generator edits page files in place; include only files that were part
+# of this render so unrelated generated changes cannot enter the commit.
+if [ "$full_render" = true ]; then
+    git add -- index.html '*.dc.html'
+else
+    while IFS= read -r path; do
+        [ -n "$path" ] || continue
+        git add -- "$path"
+    done <<EOF
+$page_paths
+EOF
+fi
+
+printf '[pre-commit] Snapshots regenerated and staged.\n'

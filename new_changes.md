@@ -20,7 +20,21 @@ with the real content above it, crawlers will see stale/wrong text.
 
 1. **Edit the page as normal** — only touch what's inside `<x-dc>...</x-dc>`.
 
-2. **Regenerate that page's snapshot:**
+2. **Stage your changes and commit normally:**
+   ```
+   git add .
+   git commit -m "Describe the change"
+   ```
+
+   Once the one-time setup below is complete, the `pre-commit` hook detects
+   staged page changes and regenerates the matching snapshot automatically.
+   It stages the generated HTML into the same commit. If rendering fails, the
+   commit stops so stale crawler content cannot be committed.
+
+   The hook runs only during `git commit`, not during `git add`. Commits that
+   contain only documentation or deployment changes skip prerendering.
+
+3. **Manual fallback, when needed:**
    ```
    python3 prerender.py --only <slug>
    ```
@@ -31,14 +45,14 @@ with the real content above it, crawlers will see stale/wrong text.
    It starts its own local server internally — you don't need anything else
    running first.
 
-3. **Check the diff matches your edit:**
+4. **Check the diff matches your edit:**
    ```
    git diff "Arcum Tent.dc.html"
    ```
    Confirm only the `<noscript>` block changed, and its text reflects your
    edit — not stale, not empty/placeholder-looking.
 
-4. **Spot-check it live before committing:**
+5. **Spot-check it live before committing:**
    ```
    python3 dev_server.py --port 8000
    ```
@@ -56,12 +70,29 @@ with the real content above it, crawlers will see stale/wrong text.
    Settings → Preferences → "Disable JavaScript" → reload. You should see
    plain, readable text matching your edit. Re-enable JavaScript after.
 
-5. **Commit the source edit and the regenerated `<noscript>` block together,
+6. **Commit the source edit and the regenerated `<noscript>` block together,
    as one change.** Never commit them separately — a content edit without its
    matching snapshot regen is exactly how the crawler-visible content goes
    stale.
 
-6. **Deploy as usual** via `deploy.sh` — nothing about deploy changed for this.
+7. **Deploy as usual** via `deploy.sh` — nothing about deploy changed for this.
+
+## One-time Git hook setup
+
+Run this once from PowerShell in the repository:
+
+```
+.\setup-git-hooks.ps1
+```
+
+This configures the repository to use the versioned `.githooks/pre-commit`
+script. Each clone needs this setup once. After that, `git push` sends the
+already-synchronized commit; no post-push regeneration is needed.
+
+The hook requires Python and the Playwright dependencies used by
+`prerender.py`. If a relevant file has unstaged edits, the hook stops and asks
+you to stage or stash them first, preventing unstaged content from entering a
+commit accidentally.
 
 ## Adding or renaming a page
 
